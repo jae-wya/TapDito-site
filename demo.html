@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TapDito Sample Pages</title>
+<meta name="description" content="Sample landing pages that open when someone taps a TapDito Professional Card.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TapDito sample landing pages">
+<meta property="og:description" content="What opens when someone taps your TapDito card: contact buttons, save-to-phone, services, prices, and links.">
+<meta property="og:image" content="og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#071433">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Cormorant+Garamond:wght@500;600;700&display=swap">
+<style>
+/* Layout: TapDito chrome (navy, fixed look) around a phone-width page. Each sample business has its own palette and type, because that is the product. */
+:root {
+  color-scheme: dark;
+  --chrome: #050C1E; --chrome-2: #0B1835; --chrome-line: #1B2F57; --chrome-ink: #FFFFFF; --chrome-ink-2: #A7B6CD; --tdblue: #2F86FF;
+  --display: "Montserrat", "Segoe UI", system-ui, sans-serif;
+  --body: "Geist", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: "Geist Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--chrome); color: var(--chrome-ink); font: 400 16px/1.55 var(--body); -webkit-font-smoothing: antialiased; padding-top: env(safe-area-inset-top, 0px); }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--tdblue); outline-offset: 3px; border-radius: 4px; }
+a { color: inherit; }
+
+.shell { max-width: 1120px; margin: 0 auto; padding: 28px max(16px, env(safe-area-inset-right, 0px)) 48px max(16px, env(safe-area-inset-left, 0px)); display: grid; grid-template-columns: minmax(0, 1fr) 430px; gap: 56px; align-items: start; }
+.side { position: sticky; top: 28px; display: grid; gap: 22px; }
+.back { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font: 800 16px/1 var(--display); letter-spacing: .05em; }
+.back svg { width: 32px; height: 32px; }
+.back b { color: var(--tdblue); }
+.side h1 { margin: 0; font: 900 clamp(30px, 3.6vw, 44px)/1.05 var(--display); text-transform: uppercase; text-wrap: balance; }
+.side h1 span { color: var(--tdblue); display: block; }
+.side p { margin: 0; color: var(--chrome-ink-2); max-width: 46ch; }
+.picker { display: grid; gap: 8px; }
+.pick { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 14px; align-items: center; text-align: left; padding: 12px 14px; border-radius: 12px; border: 1.5px solid var(--chrome-line); background: var(--chrome-2); cursor: pointer; color: var(--chrome-ink); }
+.pick:hover { border-color: #3A5590; }
+.pick[aria-pressed="true"] { border-color: var(--tdblue); background: #0E2350; }
+.pick i { grid-row: span 2; width: 44px; height: 44px; border-radius: 10px; display: grid; place-items: center; font: 800 16px/1 var(--display); font-style: normal; color: #fff; }
+.pick b { font: 700 15px/1.2 var(--display); }
+.pick small { color: var(--chrome-ink-2); font-size: 13px; }
+.incl { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 14.5px; color: var(--chrome-ink-2); }
+.incl li { display: flex; gap: 10px; }
+.incl li::before { content: ""; width: 6px; height: 6px; margin-top: 9px; border-radius: 50%; background: var(--tdblue); flex: none; }
+.price { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 16px; border: 2px solid #2ED3F4; border-radius: 12px; }
+.price b { font: 800 24px/1 var(--display); color: #2ED3F4; }
+.price span { font-size: 13.5px; color: var(--chrome-ink-2); flex: 1; min-width: 160px; }
+.cta { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border-radius: 10px; background: var(--tdblue); color: #fff; text-decoration: none; font: 700 15px/1 var(--display); }
+.cta:hover { background: #1F6FE0; }
+
+/* The sample page column */
+.device { border-radius: 30px; overflow: hidden; border: 1.5px solid var(--chrome-line); box-shadow: 0 40px 80px -40px rgba(0,0,0,.8); }
+.sampletag { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 16px; background: #0B1835; font-size: 12.5px; color: var(--chrome-ink-2); border-bottom: 1px solid var(--chrome-line); }
+.sampletag a { color: #7FB3FF; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.mchips { display: none; gap: 6px; overflow-x: auto; padding-bottom: 12px; }
+.mchips button { flex: none; padding: 8px 14px; border-radius: 99px; border: 1.5px solid var(--chrome-line); background: var(--chrome-2); font: 600 13px/1 var(--display); cursor: pointer; }
+.mchips button[aria-pressed="true"] { background: var(--tdblue); border-color: var(--tdblue); color: #fff; }
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; gap: 0; padding-top: 14px; }
+  .side { display: none; }
+  .mchips { display: flex; }
+  .device { border-radius: 22px; }
+  .mhead { display: flex !important; }
+}
+.mhead { display: none; justify-content: space-between; align-items: center; padding-bottom: 12px; }
+.mhead a.cta { min-height: 38px; padding: 0 14px; font-size: 13px; }
+
+/* ===== Shared page parts (colors come from each profile's tokens) ===== */
+.pg { background: var(--p-bg); color: var(--p-ink); font-family: var(--p-body, var(--body)); min-height: 720px; }
+.pg .cover { height: 150px; background: var(--p-cover); position: relative; }
+.pg .id { padding: 0 24px; margin-top: -46px; position: relative; display: grid; gap: 6px; justify-items: center; text-align: center; }
+.pg .av { width: 92px; height: 92px; border-radius: var(--p-av-radius, 50%); border: 4px solid var(--p-bg); background: var(--p-accent); color: var(--p-on-accent); display: grid; place-items: center; font: 800 32px/1 var(--p-display); }
+.pg h2 { margin: 6px 0 0; font: var(--p-h2); letter-spacing: var(--p-h2-ls, -0.01em); }
+.pg .role { color: var(--p-ink-2); font-size: 14.5px; max-width: 34ch; text-wrap: balance; }
+.pg .meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; font-size: 13px; color: var(--p-ink-2); }
+.pg .actions { display: grid; gap: 10px; padding: 22px 24px 4px; }
+.pg .act { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 16px; border-radius: var(--p-btn-radius, 14px); border: 1.5px solid var(--p-line); background: var(--p-card); color: var(--p-ink); font: 600 15px/1.2 var(--p-body, var(--body)); cursor: pointer; }
+.pg .act svg { width: 19px; height: 19px; flex: none; }
+.pg .act.main { background: var(--p-accent); border-color: var(--p-accent); color: var(--p-on-accent); }
+.pg .save { margin: 10px 24px 0; width: calc(100% - 48px); min-height: 52px; border-radius: var(--p-btn-radius, 14px); border: 1.5px dashed var(--p-line); background: transparent; color: var(--p-ink); font: 600 15px/1 var(--p-body, var(--body)); cursor: pointer; }
+.pg .sec { padding: 30px 24px 4px; display: grid; gap: 12px; }
+.pg .sec h3 { margin: 0; font: var(--p-h3); text-align: center; }
+.pg .card { background: var(--p-card); border: 1.5px solid var(--p-line); border-radius: 14px; padding: 14px 16px; }
+.pg .rows { display: grid; }
+.pg .rows > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 11px 0; border-bottom: 1px dashed var(--p-line); }
+.pg .rows > div:last-child { border-bottom: 0; }
+.pg .rows b { font-weight: 600; }
+.pg .rows small { display: block; color: var(--p-ink-2); font-size: 12.5px; font-weight: 400; }
+.pg .amt { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pg .links { display: grid; gap: 8px; }
+.pg .lnk { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; padding: 10px 16px; border-radius: var(--p-btn-radius, 14px); border: 1.5px solid var(--p-line); background: var(--p-card); font-weight: 600; font-size: 15px; cursor: pointer; text-align: center; width: 100%; }
+.pg .lnk span { color: var(--p-ink-2); font-weight: 400; font-size: 12.5px; }
+.pg .foot { padding: 30px 20px 34px; text-align: center; font-size: 12px; color: var(--p-ink-2); }
+.pg .foot b { color: var(--p-ink); }
+.pg .fld { display: grid; gap: 6px; font-size: 13px; font-weight: 600; }
+.pg .inp { width: 100%; min-height: 44px; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--p-line); background: var(--p-bg); color: var(--p-ink); font: 400 15px/1.3 var(--p-body, var(--body)); }
+.pg .btn { width: 100%; min-height: 46px; border-radius: 10px; border: 0; background: var(--p-accent); color: var(--p-on-accent); font: 700 15px/1 var(--p-body, var(--body)); cursor: pointer; }
+.pg .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.pg .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; font-size: 12.5px; font-weight: 600; }
+.pg .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+/* Profile: café */
+.p-cafe { --p-bg: #1E1712; --p-card: #2A2019; --p-line: #4A3A2D; --p-ink: #F6EBDD; --p-ink-2: #C3AE96; --p-accent: #E3A33B; --p-on-accent: #1E1712;
+  --p-cover: radial-gradient(120% 140% at 80% 0%, #6B4A2E 0%, #2A1D14 60%), #2A1D14; --p-display: "Fraunces", Georgia, serif;
+  --p-h2: 800 30px/1.05 "Fraunces", Georgia, serif; --p-h3: 600 21px/1.2 "Fraunces", Georgia, serif; --p-av-radius: 22px; --p-btn-radius: 10px; }
+.p-cafe .cover::after { content: "kape · pandesal · kwentuhan"; position: absolute; left: 0; right: 0; top: 24px; text-align: center; font: italic 600 13px/1 "Fraunces", Georgia, serif; color: rgba(246,235,221,.55); }
+.wifi { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.wifi code { font: 500 15px/1.3 var(--mono); }
+.wifi small { display: block; color: var(--p-ink-2); font-size: 12.5px; }
+.copy { padding: 9px 14px; border-radius: 9px; border: 1.5px solid var(--p-accent); background: transparent; color: var(--p-accent); font-weight: 700; font-size: 13px; cursor: pointer; white-space: nowrap; }
+/* Profile: realty agent */
+.p-agent { --p-bg: #F5F7FA; --p-card: #FFFFFF; --p-line: #D9E1EC; --p-ink: #0E1B2E; --p-ink-2: #56647A; --p-accent: #0E3A75; --p-on-accent: #FFFFFF;
+  --p-cover: linear-gradient(120deg, #0E3A75, #1C5DAE); --p-display: "Montserrat", sans-serif;
+  --p-h2: 800 26px/1.1 "Montserrat", sans-serif; --p-h3: 700 17px/1.2 "Montserrat", sans-serif; --p-btn-radius: 6px; }
+.p-agent .cover { background-image: linear-gradient(120deg, rgba(14,58,117,.96), rgba(28,93,174,.9)), repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 1px, transparent 1px 34px), repeating-linear-gradient(0deg, rgba(255,255,255,.06) 0 1px, transparent 1px 34px); }
+.pg .rows > .listing { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline; }
+.listing b { font-size: 15px; }
+.listing .amt { font-weight: 600; color: var(--p-accent); grid-row: span 2; align-self: center; }
+.listing small { color: var(--p-ink-2); font-size: 12.5px; }
+.calc output { display: block; font: 800 28px/1.1 "Montserrat", sans-serif; color: var(--p-accent); }
+.calc .note { font-size: 12px; color: var(--p-ink-2); }
+/* Profile: makeup artist */
+.p-artist { --p-bg: #FBF4F1; --p-card: #FFFFFF; --p-line: #EADAD3; --p-ink: #2B1A1C; --p-ink-2: #7D6266; --p-accent: #2B1A1C; --p-on-accent: #FBF4F1;
+  --p-cover: linear-gradient(160deg, #E8C4BB, #C98F87); --p-display: "Cormorant Garamond", Georgia, serif;
+  --p-h2: 700 34px/1 "Cormorant Garamond", Georgia, serif; --p-h3: 600 24px/1.1 "Cormorant Garamond", Georgia, serif; --p-h2-ls: 0; --p-btn-radius: 99px; }
+.p-artist .cover::after { content: "Bridal · Debut · Editorial"; position: absolute; left: 0; right: 0; top: 26px; text-align: center; font: italic 600 15px/1 "Cormorant Garamond", Georgia, serif; color: rgba(43,26,28,.55); }
+.pg .rows > .pkg { display: grid; gap: 4px; justify-content: stretch; }
+.pkg .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.pkg b { font: 600 20px/1.1 "Cormorant Garamond", Georgia, serif; }
+.pkg p { margin: 0; font-size: 13px; color: var(--p-ink-2); }
+.slot { font-size: 13.5px; min-height: 20px; }
+
+/* Toast */
+.toast { position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; max-width: min(420px, calc(100% - 32px)); padding: 12px 16px; border-radius: 12px; background: #0B1835; border: 1px solid var(--chrome-line); color: #fff; font-size: 14px; box-shadow: 0 16px 40px -12px rgba(0,0,0,.6); transition: opacity .25s, transform .25s; z-index: 50; pointer-events: none; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.swap { animation: swap .45s cubic-bezier(.2,.8,.2,1); }
+@keyframes swap { from { opacity: .2; transform: translateY(14px); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="sig" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2ED3F4"/><stop offset="1" stop-color="#1A6FE0"/></linearGradient>
+    <symbol id="logo" viewBox="0 0 64 64">
+      <path fill="currentColor" d="M7 21.5 L14 14.5 H38 C43 14.5 47.2 16.2 50.4 18.9 L46.1 23.3 C43.9 21.7 41.1 21 38 21.3 H7.6 Z"/>
+      <path fill="currentColor" d="M19.5 24.8 H26 V42.8 H38 C41 42.8 43.9 42 46.1 40.4 L50.4 44.8 C47.2 47.5 43 49.2 38 49.2 H19.5 Z"/>
+      <path fill="none" stroke="url(#sig)" stroke-width="3.6" stroke-linecap="round" d="M48.6 27.6 A6.2 6.2 0 0 1 48.6 36.4"/>
+      <path fill="none" stroke="url(#sig)" stroke-width="3.6" stroke-linecap="round" d="M52.4 23.8 A11.6 11.6 0 0 1 52.4 40.2"/>
+      <path fill="none" stroke="url(#sig)" stroke-width="3.6" stroke-linecap="round" d="M56.2 20 A17 17 0 0 1 56.2 44"/>
+    </symbol>
+    <symbol id="i-call" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></symbol>
+    <symbol id="i-msg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 5h16v11H9l-5 4V5Z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></g></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></g></symbol>
+  </defs>
+</svg>
+
+<div class="shell">
+  <aside class="side">
+    <a class="back" href="index.html"><svg><use href="#logo"/></svg><span>TAP<b>DITO</b></span></a>
+    <h1>Sample landing pages <span>for your card</span></h1>
+    <p>This is what opens when someone taps a TapDito Professional Card. Every page is designed around your business. Pick a sample to see how different they can look.</p>
+    <div class="picker" id="picker"></div>
+    <ul class="incl">
+      <li>Call, message, and email buttons that open the phone's own apps</li>
+      <li>Save contact, so your details go straight into their phone</li>
+      <li>Your services or menu with prices</li>
+      <li>Your Facebook, Instagram, TikTok, and review links</li>
+      <li>A tool made for your business, like a loan estimate or Wi-Fi details</li>
+    </ul>
+    <div class="price"><b>₱800 – ₱1,000</b><span>Landing page, one-time. Pair it with a ₱199 Professional Card. Final price depends on the design and content.</span></div>
+    <div><a class="cta" href="index.html#design">Order a card and page</a></div>
+  </aside>
+
+  <main>
+    <div class="mhead"><a class="back" href="index.html"><svg><use href="#logo"/></svg><span>TAP<b>DITO</b></span></a><a class="cta" href="index.html#design">Get one</a></div>
+    <div class="mchips" id="mchips" role="group" aria-label="Choose a sample"></div>
+    <div class="device">
+      <div class="sampletag"><span>Sample page. Buttons are for demo only.</span><a href="index.html#design">Get a page like this</a></div>
+      <div id="page"></div>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const ic = n => `<svg aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const peso = n => "₱" + Math.round(n).toLocaleString("en-PH");
+
+/* Sample businesses. Names and numbers are fictional. */
+const PROFILES = {
+  cafe: {
+    label: "Café", sub: "Menu, hours, Wi-Fi, reviews", color: "#8A5A35", init: "S",
+    vcard: { name: "Sitio Brew", org: "Sitio Brew Coffee", title: "Specialty coffee", tel: "", note: "Sample TapDito page" },
+    render: () => `
+    <div class="pg p-cafe">
+      <div class="cover"></div>
+      <div class="id">
+        <div class="av">S</div>
+        <h2>Sitio Brew</h2>
+        <div class="role">Slow-bar coffee and pandesal, near UPLB</div>
+        <div class="meta"><span id="openNow"></span><span>Los Baños, Laguna</span></div>
+      </div>
+      <div class="actions"><button class="act main" data-demo="Opens Google Maps with directions to the café.">${ic("pin")}Directions</button><button class="act" data-demo="Opens a Messenger chat with the café's page.">${ic("msg")}Message</button><button class="act" data-demo="Opens the phone dialer with the café's number.">${ic("call")}Call</button></div>
+      <div class="sec">
+        <h3>Guest Wi-Fi</h3>
+        <div class="card wifi"><div><small>Network</small><code>SitioBrew_Guest</code><small style="margin-top:6px">Password</small><code id="wifiPw">kapeTayo2026</code></div><button class="copy" id="copyWifi" type="button">Copy password</button></div>
+      </div>
+      <div class="sec">
+        <h3>Menu</h3>
+        <div class="card rows">
+          <div><b>Spanish Latte<small>Espresso, condensed milk, cold milk</small></b><span class="amt">₱140</span></div>
+          <div><b>Sea Salt Cold Brew<small>18-hour steep, salted cream</small></b><span class="amt">₱160</span></div>
+          <div><b>Iced Americano<small>Double shot, Benguet beans</small></b><span class="amt">₱110</span></div>
+          <div><b>Tablea Hot Chocolate<small>Batangas tablea, muscovado</small></b><span class="amt">₱130</span></div>
+          <div><b>Ube Cheese Pandesal<small>Baked every morning, 3 pcs</small></b><span class="amt">₱75</span></div>
+        </div>
+      </div>
+      <div class="sec">
+        <h3>Hours</h3>
+        <div class="card rows" id="hours"></div>
+      </div>
+      <div class="sec">
+        <h3>Enjoyed your visit?</h3>
+        <div class="links">
+          <button class="lnk" data-demo="Opens the Google review form with the stars ready to tap.">Leave a Google review <span>★★★★★</span></button>
+          <button class="lnk" data-demo="Opens the café's Instagram profile.">Instagram <span>@sitiobrew</span></button>
+          <button class="lnk" data-demo="Opens the café's Facebook page.">Facebook <span>Sitio Brew</span></button>
+        </div>
+      </div>
+      <div class="foot">Powered by <b>TapDito</b></div>
+    </div>`,
+    after() {
+      const hours = [["Mon – Thu", 8, 21], ["Fri – Sat", 8, 23], ["Sunday", 9, 20]];
+      const fmt = h => { const s = h >= 12 ? "PM" : "AM"; const x = h % 12 || 12; return x + ":00 " + s; };
+      $("#hours").innerHTML = hours.map(([d, o, c]) => `<div><b>${d}</b><span class="amt">${fmt(o)} – ${fmt(c)}</span></div>`).join("");
+      const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Manila" }));
+      const day = now.getDay(), hr = now.getHours() + now.getMinutes() / 60;
+      const [, o, c] = day === 0 ? hours[2] : day >= 5 ? hours[1] : hours[0];
+      const open = hr >= o && hr < c;
+      $("#openNow").innerHTML = `<span class="badge" style="color:${open ? "#7FD49B" : "#E9967A"};background:${open ? "rgba(127,212,155,.12)" : "rgba(233,150,122,.12)"}">${open ? "Open now · until " + fmt(c) : "Closed · opens " + fmt(o)}</span>`;
+      $("#copyWifi").addEventListener("click", async e => {
+        try { await navigator.clipboard.writeText($("#wifiPw").textContent); e.target.textContent = "Copied"; toast("Password copied. Paste it in your Wi-Fi settings."); }
+        catch (err) { const r = document.createRange(); r.selectNodeContents($("#wifiPw")); getSelection().removeAllRanges(); getSelection().addRange(r); e.target.textContent = "Selected"; }
+      });
+    }
+  },
+  agent: {
+    label: "Real estate agent", sub: "Listings, loan estimate, viewings", color: "#0E3A75", init: "A",
+    vcard: { name: "Andrea Ramos", org: "Ramos Realty", title: "Real Estate Broker, Calamba and Sta. Rosa", tel: "", note: "Sample TapDito page" },
+    render: () => `
+    <div class="pg p-agent">
+      <div class="cover"></div>
+      <div class="id">
+        <div class="av">AR</div>
+        <h2>Andrea Ramos</h2>
+        <div class="role">Real estate broker · Calamba and Sta. Rosa</div>
+        <div class="meta"><span>Houses, lots, condos</span><span>Pag-IBIG and bank financing</span></div>
+      </div>
+      <div class="actions"><button class="act main" data-demo="Opens the phone dialer with Andrea's number.">${ic("call")}Call</button><button class="act" data-demo="Opens a Viber chat with Andrea.">${ic("msg")}Viber</button><button class="act" data-demo="Opens a new email to Andrea.">${ic("mail")}Email</button></div>
+      <button class="save" data-save>Save contact to phone</button>
+      <div class="sec">
+        <h3>Available now</h3>
+        <div class="card rows">
+          <div class="listing"><b>2BR townhouse, Calamba</b><span class="amt">₱3.2M</span><small>60 sqm floor · near SLEX exit</small></div>
+          <div class="listing"><b>Residential lot, Sto. Tomas</b><span class="amt">₱1.8M</span><small>150 sqm · clean title</small></div>
+          <div class="listing"><b>Studio condo, Sta. Rosa</b><span class="amt">₱18,000/mo</span><small>For rent · near Nuvali</small></div>
+        </div>
+      </div>
+      <div class="sec">
+        <h3>Estimate your monthly payment</h3>
+        <form class="card calc" id="calc" style="display:grid;gap:12px" novalidate>
+          <div class="grid2">
+            <label class="fld" for="cPrice">Property price<input class="inp" id="cPrice" inputmode="numeric" value="3200000"></label>
+            <label class="fld" for="cDown">Down payment %<input class="inp" id="cDown" inputmode="numeric" value="20"></label>
+            <label class="fld" for="cYears">Years to pay<select class="inp" id="cYears"><option>10</option><option>15</option><option selected>20</option><option>25</option><option>30</option></select></label>
+            <label class="fld" for="cRate">Interest % a year<input class="inp" id="cRate" inputmode="decimal" value="6.5"></label>
+          </div>
+          <div><span class="note">Estimated monthly amortization</span><output id="cOut"></output><span class="note" id="cLoan"></span></div>
+          <p class="note" style="margin:0">Estimate only. Actual rates depend on the bank or Pag-IBIG and your approval.</p>
+        </form>
+      </div>
+      <div class="sec">
+        <h3>Book a viewing</h3>
+        <form class="card" id="book" style="display:grid;gap:10px" novalidate>
+          <label class="fld" for="bName">Your name<input class="inp" id="bName" autocomplete="name"></label>
+          <label class="fld" for="bWhich">Property<select class="inp" id="bWhich"><option>2BR townhouse, Calamba</option><option>Residential lot, Sto. Tomas</option><option>Studio condo, Sta. Rosa</option></select></label>
+          <label class="fld" for="bDate">Preferred date<input class="inp" id="bDate" type="date"></label>
+          <button class="btn" type="submit">Request viewing</button>
+        </form>
+      </div>
+      <div class="foot">Powered by <b>TapDito</b></div>
+    </div>`,
+    after() {
+      const num = s => parseFloat(String(s).replace(/[^\d.]/g, "")) || 0;
+      const calc = () => {
+        const price = num($("#cPrice").value), down = Math.min(num($("#cDown").value), 100) / 100, n = num($("#cYears").value) * 12, r = num($("#cRate").value) / 100 / 12;
+        const loan = price * (1 - down);
+        const m = r ? loan * r / (1 - Math.pow(1 + r, -n)) : loan / n;
+        $("#cOut").textContent = isFinite(m) && m > 0 ? peso(m) + " / month" : "—";
+        $("#cLoan").textContent = loan > 0 ? `Loan amount ${peso(loan)} over ${n / 12} years` : "";
+      };
+      $("#calc").addEventListener("input", calc); calc();
+      $("#calc").addEventListener("submit", e => e.preventDefault());
+      $("#book").addEventListener("submit", e => { e.preventDefault(); toast(($("#bName").value.trim() ? "Thanks, " + $("#bName").value.trim().split(" ")[0] + ". " : "") + "On a real page, this request goes straight to the agent."); });
+    }
+  },
+  artist: {
+    label: "Makeup artist", sub: "Packages, availability, booking", color: "#B9776E", init: "B",
+    vcard: { name: "Bea Lim", org: "Bea Lim Makeup", title: "Bridal and event makeup artist", tel: "", note: "Sample TapDito page" },
+    render: () => `
+    <div class="pg p-artist">
+      <div class="cover"></div>
+      <div class="id">
+        <div class="av">B</div>
+        <h2>Bea Lim Makeup</h2>
+        <div class="role">Bridal, debut, and editorial makeup · Laguna and Metro Manila</div>
+      </div>
+      <div class="actions"><button class="act main" data-demo="Opens a Messenger chat with Bea.">${ic("msg")}Message</button><button class="act" data-demo="Opens Bea's Instagram portfolio.">${ic("cal")}Portfolio</button><button class="act" data-demo="Opens the phone dialer with Bea's number.">${ic("call")}Call</button></div>
+      <button class="save" data-save>Save contact to phone</button>
+      <div class="sec">
+        <h3>Packages</h3>
+        <div class="card rows">
+          <div class="pkg"><div class="top"><b>Bridal</b><span class="amt">₱12,000</span></div><p>Trial session, wedding-day makeup and hair, touch-up kit</p></div>
+          <div class="pkg"><div class="top"><b>Debut</b><span class="amt">₱6,500</span></div><p>Makeup and hair for the celebrant, one look change</p></div>
+          <div class="pkg"><div class="top"><b>Graduation or photoshoot</b><span class="amt">₱2,500</span></div><p>Soft glam, false lashes included</p></div>
+        </div>
+      </div>
+      <div class="sec">
+        <h3>Check a date</h3>
+        <form class="card" id="avail" style="display:grid;gap:10px" novalidate>
+          <label class="fld" for="aDate">Event date<input class="inp" id="aDate" type="date"></label>
+          <label class="fld" for="aPkg">Package<select class="inp" id="aPkg"><option>Bridal</option><option>Debut</option><option>Graduation or photoshoot</option></select></label>
+          <button class="btn" type="submit">Check availability</button>
+          <p class="slot" id="aOut" role="status"></p>
+        </form>
+        <p style="margin:0;font-size:13px;color:var(--p-ink-2)">A ₱1,000 reservation fee holds your date. Payment details are sent after Bea confirms.</p>
+      </div>
+      <div class="sec">
+        <div class="links">
+          <button class="lnk" data-demo="Opens Bea's Instagram profile.">Instagram <span>@bealim.makeup</span></button>
+          <button class="lnk" data-demo="Opens Bea's TikTok profile.">TikTok <span>@bealim.mua</span></button>
+          <button class="lnk" data-demo="Opens Bea's Google reviews.">Client reviews <span>★★★★★</span></button>
+        </div>
+      </div>
+      <div class="foot">Powered by <b>TapDito</b></div>
+    </div>`,
+    after() {
+      const d = $("#aDate"), t = new Date(); t.setDate(t.getDate() + 1); d.min = t.toISOString().slice(0, 10);
+      $("#avail").addEventListener("submit", e => {
+        e.preventDefault();
+        if (!d.value) { $("#aOut").textContent = "Pick your event date first."; return; }
+        const day = new Date(d.value + "T00:00:00");
+        const label = day.toLocaleDateString("en-PH", { weekday: "long", month: "long", day: "numeric" });
+        const wknd = day.getDay() === 0 || day.getDay() === 6;
+        $("#aOut").innerHTML = wknd ? `<b>${label}</b> has one slot left. On a real page, Bea would get your request right away.` : `<b>${label}</b> is open. On a real page, Bea would get your request right away.`;
+      });
+    }
+  }
+};
+
+let cur = "cafe";
+let toastT;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2800); }
+function vcard(v) {
+  return ["BEGIN:VCARD", "VERSION:3.0", `FN:${v.name}`, `ORG:${v.org}`, `TITLE:${v.title}`, `NOTE:${v.note}`, "END:VCARD"].join("\r\n");
+}
+function show(id, scroll) {
+  cur = PROFILES[id] ? id : "cafe";
+  const p = PROFILES[cur], page = $("#page");
+  page.innerHTML = p.render();
+  page.firstElementChild.classList.add("swap");
+  p.after();
+  $$("[data-pick]").forEach(b => b.setAttribute("aria-pressed", b.dataset.pick === cur));
+  try { history.replaceState(null, "", "#" + cur); } catch (e) {}
+  if (scroll && innerWidth < 900) $(".device").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+$("#picker").innerHTML = Object.entries(PROFILES).map(([k, p]) => `<button class="pick" type="button" data-pick="${k}" aria-pressed="false"><i style="background:${p.color}">${p.init}</i><b>${p.label}</b><small>${p.sub}</small></button>`).join("");
+$("#mchips").innerHTML = Object.entries(PROFILES).map(([k, p]) => `<button type="button" data-pick="${k}" aria-pressed="false">${p.label}</button>`).join("");
+document.addEventListener("click", e => {
+  const pick = e.target.closest("[data-pick]"); if (pick) { show(pick.dataset.pick, true); return; }
+  const demo = e.target.closest("[data-demo]"); if (demo) { toast(demo.dataset.demo); return; }
+  const save = e.target.closest("[data-save]");
+  if (save) {
+    try {
+      const v = PROFILES[cur].vcard, a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([vcard(v)], { type: "text/vcard" }));
+      a.download = v.name.replace(/\s+/g, "-") + ".vcf"; document.body.appendChild(a); a.click(); a.remove();
+    } catch (err) {}
+    toast("On a phone, this adds the contact straight to their contacts app.");
+  }
+});
+show(location.hash.slice(1) || "cafe");
+addEventListener("hashchange", () => { const id = location.hash.slice(1); if (PROFILES[id] && id !== cur) show(id); });
+</script>
+</body>
+</html>
