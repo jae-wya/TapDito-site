@@ -1,0 +1,5 @@
+{
+  "_comment": "A client who bought the ₱199 card only. The chip points here; this sends them straight on. To upgrade them to a full page later, change mode to \"page\" and fill in the rest. No reprinting.",
+  "mode": "redirect",
+  "redirect": "https://instagram.com/example"
+}

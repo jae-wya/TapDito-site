@@ -1,0 +1,32 @@
+{
+  "_comment": "Copy this file, rename it to the client's slug (lowercase, dashes only), then fill it in. The page lives at tapdito.ph/p/<slug>",
+  "mode": "page",
+  "name": "Business or person's name",
+  "role": "One line under the name",
+  "initials": "B",
+  "photo": "",
+  "coverTag": "",
+  "meta": ["Town, province"],
+  "theme": {
+    "bg": "#0E1626",
+    "card": "#182236",
+    "line": "#2A3850",
+    "ink": "#FFFFFF",
+    "ink2": "#9DAFC6",
+    "accent": "#2F86FF",
+    "onAccent": "#FFFFFF",
+    "cover": "linear-gradient(140deg, #16305C, #0A1730)",
+    "btnRadius": "14px"
+  },
+  "actions": [
+    { "label": "Call", "icon": "call", "href": "tel:+639XXXXXXXXX", "primary": true },
+    { "label": "Message", "icon": "msg", "href": "https://m.me/theirpage" },
+    { "label": "Directions", "icon": "pin", "href": "https://maps.app.goo.gl/XXXX" }
+  ],
+  "saveContact": { "name": "", "org": "", "title": "", "tel": "", "email": "" },
+  "sections": [
+    { "type": "list", "title": "Services", "items": [ { "name": "Item", "note": "Short description", "value": "₱000" } ] },
+    { "type": "links", "title": "Find us", "items": [ { "label": "Facebook", "sub": "Page name", "href": "https://facebook.com/theirpage" } ] },
+    { "type": "text", "title": "", "body": "Any closing note." }
+  ]
+}

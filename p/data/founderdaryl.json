@@ -1,0 +1,145 @@
+{
+  "mode": "page",
+  "name": "Daryl Sosa",
+  "role": "Founder · TapDito NFC Solutions",
+  "photo": "/p/img/founderdaryl.webp",
+  "initials": "DS",
+  "coverTag": "One Tap, Infinite Possibilities",
+  "meta": [
+    "Executive Assistant · Wingbox Aviation Inc.",
+    "Mayondon, Los Baños, Laguna"
+  ],
+  "theme": {
+    "bg": "#071433",
+    "card": "#0E2250",
+    "line": "#1C3568",
+    "ink": "#FFFFFF",
+    "ink2": "#9DB8DC",
+    "accent": "#2F86FF",
+    "onAccent": "#FFFFFF",
+    "cover": "radial-gradient(130% 150% at 85% 0%, #1A4A8F 0%, #0A1C42 55%, #071433 100%)",
+    "display": "\"Montserrat\", system-ui, sans-serif",
+    "h2": "800 28px/1.1 \"Montserrat\", system-ui, sans-serif",
+    "h3": "700 18px/1.2 \"Montserrat\", system-ui, sans-serif",
+    "btnRadius": "12px"
+  },
+  "actions": [
+    {
+      "label": "Call or text",
+      "icon": "call",
+      "href": "tel:+639766247818",
+      "primary": true
+    },
+    {
+      "label": "Email",
+      "icon": "mail",
+      "href": "mailto:darylsosa19@gmail.com"
+    },
+    {
+      "label": "See TapDito products",
+      "icon": "cart",
+      "href": "/#prices"
+    }
+  ],
+  "saveContact": {
+    "name": "Daryl Sosa",
+    "org": "TapDito NFC Solutions",
+    "title": "Founder",
+    "tel": "+639766247818",
+    "email": "darylsosa19@gmail.com",
+    "url": "/"
+  },
+  "saveContactLabel": "Save my contact",
+  "sections": [
+    {
+      "type": "text",
+      "title": "What we do",
+      "body": "TapDito makes custom NFC cards, acrylic stands, and keychains. Your customer taps their phone or scans the QR, and your Google reviews, Facebook, or Instagram opens right away. No app needed."
+    },
+    {
+      "type": "list",
+      "title": "What we make",
+      "items": [
+        {
+          "name": "Premium Acrylic Card",
+          "note": "Tilted clear acrylic stand for counters",
+          "value": "from ₱750"
+        },
+        {
+          "name": "Semi-Acrylic Card",
+          "note": "Upright T-stand with solid base",
+          "value": "from ₱500"
+        },
+        {
+          "name": "Professional Card",
+          "note": "Wallet-size NFC card, custom design",
+          "value": "₱199"
+        },
+        {
+          "name": "NFC Keychain",
+          "note": "3D Instagram or your own logo",
+          "value": "from ₱199"
+        },
+        {
+          "name": "Bible Verse Keychain",
+          "note": "Templated from 10 pcs, or custom",
+          "value": "from ₱50"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "title": "Already tapping at",
+      "items": [
+        {
+          "name": "Cremea",
+          "note": "Google reviews"
+        },
+        {
+          "name": "The Den",
+          "note": "Instagram"
+        },
+        {
+          "name": "Uno Cafe",
+          "note": "Facebook"
+        },
+        {
+          "name": "Cloudbites Cookies",
+          "note": "Facebook and Instagram"
+        },
+        {
+          "name": "Malaya's Agapita",
+          "note": "Google reviews"
+        },
+        {
+          "name": "Malaya's Grove",
+          "note": "Google reviews"
+        },
+        {
+          "name": "Danielito's",
+          "note": "Google reviews"
+        }
+      ]
+    },
+    {
+      "type": "links",
+      "title": "Connect with me",
+      "items": [
+        {
+          "label": "Facebook",
+          "sub": "Daryl Sosa",
+          "href": "https://www.facebook.com/share/1GTvANZAdJ/?mibextid=wwXIfr"
+        },
+        {
+          "label": "Instagram",
+          "sub": "@_dajanc.sa",
+          "href": "https://www.instagram.com/_dajanc.sa"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "body": "Tell me what your business needs and we'll design an NFC solution for your brand."
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TapDito</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#071433">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* One template for every client page. All colour and type comes from the JSON's "theme". */
+:root {
+  --bg: #0E1626; --card: #182236; --line: #2A3850; --ink: #FFFFFF; --ink2: #9DAFC6;
+  --accent: #2F86FF; --on-accent: #FFFFFF; --cover: linear-gradient(140deg, #16305C, #0A1730);
+  --display: "Montserrat", system-ui, sans-serif; --body: "Geist", system-ui, sans-serif;
+  --mono: "Geist Mono", ui-monospace, Menlo, monospace; --btn: 14px;
+  --h2: 800 28px/1.1 var(--display); --h3: 700 18px/1.2 var(--display);
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--body); -webkit-font-smoothing: antialiased; padding-bottom: env(safe-area-inset-bottom, 0px); }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+img { max-width: 100%; height: auto; display: block; }
+
+.page { max-width: 480px; margin: 0 auto; min-height: 100vh; background: var(--bg); }
+.cover { height: 150px; background: var(--cover); position: relative; }
+.cover img { width: 100%; height: 100%; object-fit: cover; }
+.cover .tag { position: absolute; left: 0; right: 0; top: 24px; text-align: center; font: italic 600 13px/1 var(--display); color: rgba(255,255,255,.6); padding: 0 20px; }
+
+.id { padding: 0 24px; margin-top: -46px; position: relative; display: grid; gap: 6px; justify-items: center; text-align: center; }
+.av { width: 92px; height: 92px; border-radius: var(--av, 50%); border: 4px solid var(--bg); background: var(--accent); color: var(--on-accent); display: grid; place-items: center; font: 800 32px/1 var(--display); overflow: hidden; }
+.av img { width: 100%; height: 100%; object-fit: cover; }
+h1 { margin: 6px 0 0; font: var(--h2); letter-spacing: var(--h2ls, -0.01em); }
+.role { color: var(--ink2); font-size: 14.5px; max-width: 34ch; text-wrap: balance; }
+.meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; font-size: 13px; color: var(--ink2); }
+.badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; font-size: 12.5px; font-weight: 600; }
+.badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+.actions { display: grid; gap: 10px; padding: 22px 24px 4px; }
+.act { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 16px; border-radius: var(--btn); border: 1.5px solid var(--line); background: var(--card); color: var(--ink); font: 600 15px/1.2 var(--body); cursor: pointer; }
+.act svg { width: 19px; height: 19px; flex: none; }
+.act.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.save { margin: 10px 24px 0; width: calc(100% - 48px); min-height: 52px; border-radius: var(--btn); border: 1.5px dashed var(--line); background: transparent; color: var(--ink); font: 600 15px/1 var(--body); cursor: pointer; }
+
+.sec { padding: 30px 24px 4px; display: grid; gap: 12px; }
+.sec h2 { margin: 0; font: var(--h3); text-align: center; }
+.card { background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; padding: 4px 16px; }
+.card.pad { padding: 16px; }
+.row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 12px 0; border-bottom: 1px dashed var(--line); }
+.row:last-child { border-bottom: 0; }
+.row b { font-weight: 600; }
+.row small { display: block; color: var(--ink2); font-size: 12.5px; font-weight: 400; margin-top: 2px; }
+.amt { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.links { display: grid; gap: 8px; }
+.lnk { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; padding: 10px 16px; border-radius: var(--btn); border: 1.5px solid var(--line); background: var(--card); font-weight: 600; font-size: 15px; text-align: center; }
+.lnk span { color: var(--ink2); font-weight: 400; font-size: 12.5px; }
+.prose { color: var(--ink2); font-size: 14.5px; text-align: center; }
+.foot { padding: 34px 24px calc(34px + env(safe-area-inset-bottom, 0px)); text-align: center; font-size: 12px; color: var(--ink2); }
+.foot a { color: var(--ink); font-weight: 600; }
+
+.state { min-height: 70vh; display: grid; place-content: center; justify-items: center; gap: 14px; padding: 40px 24px; text-align: center; }
+.state svg { width: 46px; height: 46px; color: var(--accent); }
+.state p { margin: 0; color: var(--ink2); max-width: 36ch; }
+.state .go { margin-top: 6px; padding: 12px 20px; border-radius: 10px; background: var(--accent); color: var(--on-accent); font: 700 15px/1 var(--display); }
+@media (prefers-reduced-motion: no-preference) {
+  .page > * { animation: up .5s cubic-bezier(.2,.8,.2,1) both; }
+  .page > *:nth-child(2) { animation-delay: .05s; } .page > *:nth-child(3) { animation-delay: .1s; } .page > *:nth-child(n+4) { animation-delay: .15s; }
+  @keyframes up { from { opacity: 0; transform: translateY(12px); } }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="sig" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2ED3F4"/><stop offset="1" stop-color="#1A6FE0"/></linearGradient>
+  <symbol id="logo" viewBox="0 0 64 64">
+    <path fill="currentColor" d="M7 21.5 L14 14.5 H38 C43 14.5 47.2 16.2 50.4 18.9 L46.1 23.3 C43.9 21.7 41.1 21 38 21.3 H7.6 Z"/>
+    <path fill="currentColor" d="M19.5 24.8 H26 V42.8 H38 C41 42.8 43.9 42 46.1 40.4 L50.4 44.8 C47.2 47.5 43 49.2 38 49.2 H19.5 Z"/>
+    <path fill="none" stroke="url(#sig)" stroke-width="3.6" stroke-linecap="round" d="M48.6 27.6 A6.2 6.2 0 0 1 48.6 36.4"/>
+    <path fill="none" stroke="url(#sig)" stroke-width="3.6" stroke-linecap="round" d="M52.4 23.8 A11.6 11.6 0 0 1 52.4 40.2"/>
+  </symbol>
+  <symbol id="call" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></symbol>
+  <symbol id="msg" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 5h16v11H9l-5 4V5Z"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
+  <symbol id="mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></g></symbol>
+  <symbol id="star" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="m12 3 2.6 5.8 6.4.7-4.8 4.3 1.3 6.2L12 17l-5.5 3 1.3-6.2L3 9.5l6.4-.7L12 3Z"/></symbol>
+  <symbol id="globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></g></symbol>
+  <symbol id="cart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 8h14l-1 12H6L5 8Zm4 0V6a3 3 0 0 1 6 0v2"/></symbol>
+</defs></svg>
+
+<div class="page" id="page"></div>
+
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const ICONS = ["call", "msg", "pin", "mail", "star", "globe", "cart"];
+
+/* Only these link types are allowed, so a bad value in a JSON file can never run code. */
+function safeHref(u) {
+  const s = String(u ?? "").trim();
+  if (!s) return "";
+  if (/^(https?:|tel:|mailto:|sms:)/i.test(s)) return s;
+  if (/^\/(?!\/)/.test(s)) return s;
+  if (/^[\w.-]+\.[a-z]{2,}([/?#].*)?$/i.test(s)) return "https://" + s;
+  return "";
+}
+const icon = n => ICONS.includes(n) ? `<svg aria-hidden="true"><use href="#${n}"/></svg>` : "";
+const brand = `<div class="foot">Powered by <a href="/">TapDito</a></div>`;
+
+function slug() {
+  const q = new URLSearchParams(location.search).get("c");
+  const path = location.pathname.replace(/^\/p\/?/, "").replace(/\/$/, "").replace(/\.html$/, "");
+  const raw = (q || path || "").trim();
+  return /^[a-z0-9][a-z0-9-]{0,48}$/i.test(raw) ? raw.toLowerCase() : "";
+}
+
+function theme(t = {}) {
+  const map = { bg: "--bg", card: "--card", line: "--line", ink: "--ink", ink2: "--ink2", accent: "--accent", onAccent: "--on-accent", cover: "--cover", display: "--display", body: "--body", btnRadius: "--btn", h2: "--h2", h3: "--h3", h2Letter: "--h2ls", avatarRadius: "--av" };
+  const root = document.documentElement.style;
+  for (const [k, v] of Object.entries(map)) if (t[k]) root.setProperty(v, t[k]);
+  if (t.bg) $("meta[name=theme-color]").setAttribute("content", t.bg);
+}
+
+function vcard(c, fallbackName) {
+  const line = (k, v) => v ? `${k}:${String(v).replace(/[\r\n]+/g, " ")}` : "";
+  return ["BEGIN:VCARD", "VERSION:3.0", line("FN", c.name || fallbackName), line("ORG", c.org), line("TITLE", c.title),
+    c.tel ? `TEL;TYPE=CELL:${c.tel}` : "", c.email ? `EMAIL:${c.email}` : "", c.url ? `URL:${new URL(c.url, location.origin).href}` : "",
+    "END:VCARD"].filter(Boolean).join("\r\n");
+}
+
+function section(s) {
+  const title = s.title ? `<h2>${esc(s.title)}</h2>` : "";
+  if (s.type === "list") {
+    const rows = (s.items || []).map(i => `<div class="row"><b>${esc(i.name)}${i.note ? `<small>${esc(i.note)}</small>` : ""}</b>${i.value ? `<span class="amt">${esc(i.value)}</span>` : ""}</div>`).join("");
+    return `<section class="sec">${title}<div class="card">${rows}</div></section>`;
+  }
+  if (s.type === "links") {
+    const rows = (s.items || []).map(i => {
+      const h = safeHref(i.href);
+      const inner = `${esc(i.label)}${i.sub ? `<span>${esc(i.sub)}</span>` : ""}`;
+      return h ? `<a class="lnk" href="${esc(h)}" target="_blank" rel="noopener noreferrer">${inner}</a>` : `<div class="lnk">${inner}</div>`;
+    }).join("");
+    return `<section class="sec">${title}<div class="links">${rows}</div></section>`;
+  }
+  if (s.type === "text") return `<section class="sec">${title}<p class="prose">${esc(s.body)}</p></section>`;
+  return "";
+}
+
+function render(d) {
+  theme(d.theme);
+  document.title = d.name ? d.name : "TapDito";
+  document.documentElement.lang = d.lang || "en";
+
+  const avatar = d.photo ? `<img src="${esc(d.photo)}" alt="${esc(d.name || "")}" width="92" height="92">` : esc(d.initials || (d.name || "T").trim().charAt(0).toUpperCase());
+  const cover = d.coverPhoto ? `<img src="${esc(d.coverPhoto)}" alt="">` : (d.coverTag ? `<div class="tag">${esc(d.coverTag)}</div>` : "");
+  const meta = (d.meta || []).map(m => `<span>${esc(m)}</span>`).join("");
+
+  const actions = (d.actions || []).map(a => {
+    const h = safeHref(a.href);
+    const inner = `${icon(a.icon)}${esc(a.label)}`;
+    const cls = `act${a.primary ? " primary" : ""}`;
+    return h ? `<a class="${cls}" href="${esc(h)}"${/^https?:/i.test(h) ? ' target="_blank" rel="noopener noreferrer"' : ""}>${inner}</a>` : "";
+  }).join("");
+
+  const save = d.saveContact ? `<button class="save" id="saveBtn" type="button">${esc(d.saveContactLabel || "Save contact")}</button>` : "";
+  const sections = (d.sections || []).map(section).join("");
+
+  $("#page").innerHTML = `
+    <div class="cover">${cover}</div>
+    <header class="id">
+      <div class="av">${avatar}</div>
+      <h1>${esc(d.name || "")}</h1>
+      ${d.role ? `<p class="role">${esc(d.role)}</p>` : ""}
+      ${meta ? `<div class="meta">${meta}</div>` : ""}
+    </header>
+    ${actions ? `<div class="actions">${actions}</div>` : ""}
+    ${save}
+    ${sections}
+    ${brand}`;
+
+  if (d.saveContact) $("#saveBtn").addEventListener("click", () => {
+    const blob = new Blob([vcard(d.saveContact, d.name)], { type: "text/vcard;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = (d.saveContact.name || d.name || "contact").replace(/[^\w-]+/g, "-") + ".vcf";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  });
+}
+
+function notFound() {
+  $("#page").innerHTML = `<div class="state">
+    <svg><use href="#logo"/></svg>
+    <h1 style="font:700 22px/1.2 var(--display)">This tag isn't set up yet</h1>
+    <p>If you just received this card or stand, TapDito is still preparing your page. Please check again shortly.</p>
+    <a class="go" href="/">Visit TapDito</a>
+  </div>`;
+}
+
+(async () => {
+  const s = slug();
+  if (!s) return notFound();
+  try {
+    const r = await fetch(`/p/data/${s}.json`, { cache: "no-cache" });
+    if (!r.ok) return notFound();
+    const d = await r.json();
+    const to = safeHref(d.redirect);
+    if (d.mode === "redirect" && to) { location.replace(to); return; }
+    render(d);
+  } catch (e) { notFound(); }
+})();
+</script>
+</body>
+</html>
