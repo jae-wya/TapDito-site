@@ -178,9 +178,10 @@ function render(d) {
       ${d.role ? `<p class="role">${esc(d.role)}</p>` : ""}
       ${meta ? `<div class="meta">${meta}</div>` : ""}
     </header>
+    ${d.sectionsFirst ? sections : ""}
     ${actions ? `<div class="actions">${actions}</div>` : ""}
     ${save}
-    ${sections}
+    ${d.sectionsFirst ? "" : sections}
     ${brand}`;
 
   if (d.saveContact) $("#saveBtn").addEventListener("click", () => {
