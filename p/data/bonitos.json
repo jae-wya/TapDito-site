@@ -1,0 +1,98 @@
+{
+  "_comment": "DEMO for the Bonitos pitch (Nov 17). Dish names come from public reviews; no prices until Bonitos sends the real menu. Verify phone and hours with the owner.",
+  "mode": "page",
+  "sectionsFirst": true,
+  "name": "Bonitos Bar & Restaurant",
+  "role": "Filipino · Italian · American",
+  "initials": "B",
+  "coverTag": "Table menu · tap to browse",
+  "meta": [
+    "Batong Malake, Los Baños"
+  ],
+  "theme": {
+    "bg": "#16110D",
+    "card": "#211A14",
+    "line": "#3B2F25",
+    "ink": "#F7EEE4",
+    "ink2": "#C4B19E",
+    "accent": "#E8862A",
+    "onAccent": "#16110D",
+    "cover": "linear-gradient(140deg, #6A3B14 0%, #2A1B10 70%)",
+    "display": "\"Montserrat\", Arial, sans-serif",
+    "h2": "800 26px/1.1 \"Montserrat\", Arial, sans-serif",
+    "avatarRadius": "50%",
+    "btnRadius": "12px"
+  },
+  "actions": [
+    {
+      "label": "Call to reserve",
+      "icon": "call",
+      "href": "tel:+639173182513",
+      "primary": true
+    },
+    {
+      "label": "Leave a review",
+      "icon": "star",
+      "href": "https://www.google.com/maps/search/Bonitos+Bar+%26+Restaurant+Los+Ba%C3%B1os"
+    },
+    {
+      "label": "Facebook",
+      "icon": "msg",
+      "href": "https://www.facebook.com/BonitosBarAndRestaurant"
+    }
+  ],
+  "sections": [
+    {
+      "type": "list",
+      "title": "House favorites",
+      "items": [
+        {
+          "name": "Kare-Kare",
+          "note": "Crispy pork, peanut sauce, bagoong on the side"
+        },
+        {
+          "name": "Ravioli Lasagna",
+          "note": "A Bonitos original"
+        },
+        {
+          "name": "Pesto Pasta with Chicken"
+        },
+        {
+          "name": "Pork Tenderloin with Rosemary"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "title": "Filipino",
+      "items": [
+        {
+          "name": "Pork Sisig"
+        },
+        {
+          "name": "Beef Caldereta"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "title": "Pizza, burgers & grill",
+      "items": [
+        {
+          "name": "Brick-oven pizza"
+        },
+        {
+          "name": "Bonitos burgers"
+        },
+        {
+          "name": "Grilled plates"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "title": "Sample menu",
+      "body": "A demo page TapDito made for Bonitos. The full menu goes here, with prices, photos and today's specials, and can be updated the same day prices change."
+    }
+  ]
+}
