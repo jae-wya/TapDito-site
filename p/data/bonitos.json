@@ -31,21 +31,6 @@
       "icon": "call",
       "href": "tel:+639173182513",
       "primary": true
-    },
-    {
-      "label": "Leave a review",
-      "icon": "star",
-      "href": "https://www.google.com/maps/search/Bonitos+Bar+%26+Restaurant+Los+Ba%C3%B1os"
-    },
-    {
-      "label": "Facebook",
-      "icon": "msg",
-      "href": "https://www.facebook.com/BonitosBarAndRestaurant"
-    },
-    {
-      "label": "Instagram",
-      "icon": "globe",
-      "href": "https://www.instagram.com/bonitosbarandresto"
     }
   ],
   "sections": [
