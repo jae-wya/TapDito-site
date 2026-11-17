@@ -1,13 +1,13 @@
 {
-  "_comment": "DEMO for the Bonitos pitch (Nov 17). Dish names come from public reviews; no prices until Bonitos sends the real menu. Verify phone and hours with the owner.",
+  "_comment": "Bonitos menu from their Jan 2026 menu (Canva). Prices as printed.",
   "mode": "page",
   "sectionsFirst": true,
   "name": "Bonitos Bar & Restaurant",
   "role": "Filipino · Italian · American",
   "initials": "b",
-  "coverTag": "Table menu · tap to browse",
+  "coverTag": "Menu · est. 2004",
   "meta": [
-    "Batong Malake, Los Baños"
+    "Bangkal St., Brgy. San Antonio, Los Baños"
   ],
   "theme": {
     "bg": "#FAF7F2",
@@ -41,60 +41,943 @@
       "label": "Facebook",
       "icon": "msg",
       "href": "https://www.facebook.com/BonitosBarAndRestaurant"
+    },
+    {
+      "label": "Instagram",
+      "icon": "globe",
+      "href": "https://www.instagram.com/bonitosbarandresto"
     }
   ],
   "sections": [
     {
       "type": "list",
-      "title": "House favorites",
+      "title": "Starters",
       "items": [
         {
-          "name": "Kare-Kare",
-          "note": "Crispy pork, peanut sauce, bagoong on the side"
+          "name": "Truffle & Honey Cheese Dumplings",
+          "value": "₱284",
+          "note": "manchego truffle, truffle salsa cream, cream cheese, honey, toasted walnuts"
         },
+        {
+          "name": "Tomato Surprise",
+          "value": "₱349",
+          "note": "breaded & fried tomato slices, cheese sauce, bacon, lettuce, ripe mangoes, pesto oil"
+        },
+        {
+          "name": "Bacon Croquettas",
+          "value": "₱354",
+          "note": "fried mashed potato, bacon, broiled aioli, white cheddar, pomodoro"
+        },
+        {
+          "name": "Mozzarella & Mushroom Croquettas",
+          "value": "₱474",
+          "note": "squid ink breadcrumbs, mozzarella, shiitake & button mushrooms"
+        },
+        {
+          "name": "Nacho Beef Pastrami Grande",
+          "value": "₱486",
+          "note": "corn tortilla, homemade beef pastrami, chili con carne, mozzarella"
+        },
+        {
+          "name": "Parmigiano Reggiano Potato Chips",
+          "value": "₱279",
+          "note": "pommes gaufrettes, bleu cheese sauce"
+        },
+        {
+          "name": "Sausage Platter",
+          "value": "₱944",
+          "note": "assorted sausages, sauerkraut, mustard"
+        },
+        {
+          "name": "Charcuterie Board",
+          "value": "₱1,299",
+          "note": "good for 3–4 · 3 cheeses, 3 cured meats, pretzels, olives, chili honey"
+        },
+        {
+          "name": "Baked Brie with Walnut & Honey",
+          "value": "₱699",
+          "note": "good for 3–4 · warm brie, toasted walnuts, honey, sliced bread"
+        },
+        {
+          "name": "Soup of the Day",
+          "value": "₱149",
+          "note": "ask our servers for today’s offering"
+        }
+      ],
+      "navLabel": "Starters"
+    },
+    {
+      "type": "list",
+      "title": "Salads",
+      "items": [
+        {
+          "name": "Burrata Caprese",
+          "value": "₱879",
+          "note": "burrata, tomatoes, basil, balsamic, toasted baguette"
+        },
+        {
+          "name": "Calamari Salad",
+          "value": "₱518",
+          "note": "crispy calamari, greens, Parmigiano, honey-Dijon dressing"
+        },
+        {
+          "name": "Coppa & Grilled Asian Pear Salad",
+          "value": "₱559",
+          "note": "coppa stagionata, greens, grilled pear, red wine vinaigrette"
+        },
+        {
+          "name": "Raspadura Salad",
+          "value": "₱524",
+          "note": "shaved Bella Lodi raspadura, greens, grapes, strawberry vinaigrette"
+        },
+        {
+          "name": "Apple & Candied Walnut Salad",
+          "value": "₱418",
+          "note": "greens, apple, candied walnuts, French bleu cheese vinaigrette"
+        },
+        {
+          "name": "Fried Chili Honey Feta Salad",
+          "value": "₱428",
+          "note": "fried feta, chili honey, greens, olives, lemon vinaigrette"
+        },
+        {
+          "name": "Extra Bella Lodi raspadura cheese",
+          "value": "₱190"
+        }
+      ],
+      "navLabel": "Salads"
+    },
+    {
+      "type": "list",
+      "title": "Burgers & deli sandwiches",
+      "items": [
+        {
+          "name": "Bacon Cheese Elbi Burger",
+          "value": "₱579",
+          "note": "⅓ lb patty, bacon, white cheddar, kesong puti, caramelized onions, chips"
+        },
+        {
+          "name": "Elbi Burger",
+          "value": "₱498",
+          "note": "⅓ lb patty, kesong puti, aioli, caramelized onions, chips"
+        },
+        {
+          "name": "⅓ lb Bonitos Burger",
+          "value": "₱384",
+          "note": "⅓ lb patty, aioli, lettuce, tomatoes, caramelized onions, chips"
+        },
+        {
+          "name": "Bonitos’ Beef Pastrami",
+          "value": "₱774",
+          "note": "200g beef pastrami, sesame hoagie, Dijon, sauerkraut, chips"
+        },
+        {
+          "name": "Fowl Play",
+          "value": "₱514",
+          "note": "smoked chicken ham, white cheddar, sesame hoagie, chips"
+        },
+        {
+          "name": "Farmer’s Classic",
+          "value": "₱418",
+          "note": "farmer’s ham, apples, Dijon, sesame hoagie, chips"
+        }
+      ],
+      "navLabel": "Burgers"
+    },
+    {
+      "type": "list",
+      "title": "Raviolis & pizza subs",
+      "items": [
+        {
+          "name": "Duxelle Ravioli al Tartufo",
+          "value": "₱389",
+          "note": "mushroom duxelle, bechamel, pomodoro, salsa al tartufo"
+        },
+        {
+          "name": "Tuscan Ravioli",
+          "value": "₱398",
+          "note": "spinach & mozzarella, cream cheese, pomodoro, bechamel"
+        },
+        {
+          "name": "Pizza Sub: Chicken & Bacon Caesar",
+          "value": "₱359",
+          "note": "with potato chips"
+        },
+        {
+          "name": "Pizza Sub: Chorizo Uno",
+          "value": "₱359",
+          "note": "paprika aioli, chorizo vela, bell pepper · with chips"
+        },
+        {
+          "name": "Pizza Sub: Florentine",
+          "value": "₱359",
+          "note": "kesong puti, salami Milano, Lyoner, arugula · with chips"
+        },
+        {
+          "name": "Pizza Sub: Sunday Sunnies",
+          "value": "₱359",
+          "note": "pesto, prosciutto, kesong puti, lemon zest · with chips"
+        }
+      ],
+      "navLabel": "Raviolis & subs"
+    },
+    {
+      "type": "list",
+      "title": "Pasta · solo / sharing (2–3 pax)",
+      "items": [
         {
           "name": "Ravioli Lasagna",
-          "note": "A Bonitos original"
+          "value": "₱498",
+          "note": "duxelle ravioli, bechamel, bolognese, cheddar, pesto oil"
         },
         {
-          "name": "Pesto Pasta with Chicken"
+          "name": "Classic Carbonara",
+          "value": "₱596 / ₱1,189",
+          "note": "fettuccine, guanciale, Parmigiano, egg yolk · Grana Padano wheel"
         },
         {
-          "name": "Pork Tenderloin with Rosemary"
+          "name": "Tagliatelle al Funghi",
+          "value": "₱519 / ₱1,035",
+          "note": "porcini, shiitake & button mushrooms · Grana Padano wheel"
+        },
+        {
+          "name": "Penne alla Chicken Alfredo",
+          "value": "₱514 / ₱1,025",
+          "note": "herbed chicken fillet · Grana Padano wheel"
+        },
+        {
+          "name": "Penne al Burro alla Prosciutto Crudo",
+          "value": "₱498 / ₱990",
+          "note": "butter, Parmigiano, prosciutto · Grana Padano wheel"
+        },
+        {
+          "name": "Fettuccine alla Frutti di Mare",
+          "value": "₱675 / ₱1,344",
+          "note": "shrimp, squid, Chilean mussels, pomodoro"
+        },
+        {
+          "name": "Fettuccine alla Primavera",
+          "value": "₱458 / ₱887",
+          "note": "pomodoro, olives, capers, feta, vegetables"
+        },
+        {
+          "name": "Penne al Telefono con Raspadura",
+          "value": "₱536 / ₱1,598",
+          "note": "tomato cream, mozzarella, raspadura"
+        },
+        {
+          "name": "Grilled Cacio e Pepe",
+          "value": "₱448 / ₱894",
+          "note": "grilled spaghetti, pepper, pecorino · Grana Padano wheel"
+        },
+        {
+          "name": "Spaghetti Aglio Olio alla Chorizo Vela",
+          "value": "₱438 / ₱868",
+          "note": "garlic confit, chorizo vela, poached egg"
+        },
+        {
+          "name": "Spaghetti al Pesto w/ Grilled Chicken",
+          "value": "₱389 / ₱775",
+          "note": "basil pesto, herbed chicken fillet"
+        },
+        {
+          "name": "Spaghetti Meatball",
+          "value": "₱389 / ₱775",
+          "note": "meatball, pomodoro"
+        },
+        {
+          "name": "Tagliatelle alla Bolognese",
+          "value": "₱398 / ₱795",
+          "note": "meat ragout, pomodoro"
+        },
+        {
+          "name": "Squid Ink Tagliatelle & Garlic Octopus",
+          "value": "₱419 / ₱835",
+          "note": "octopus, pomodoro fresca, capers, olives"
         }
-      ]
+      ],
+      "navLabel": "Pasta"
     },
     {
       "type": "list",
-      "title": "Filipino",
+      "title": "Neapolitan-style pizza",
       "items": [
         {
-          "name": "Pork Sisig"
+          "name": "Truffle Burrata & Prosciutto",
+          "value": "₱979",
+          "note": "truffle burrata, prosciutto crudo, arugula"
         },
         {
-          "name": "Beef Caldereta"
+          "name": "Tartufo alla Quattro Formaggi",
+          "value": "₱735",
+          "note": "mozzarella, brie, Parmigiano, truffle salsa, cheddar"
+        },
+        {
+          "name": "Mascarpone & Mushrooms",
+          "value": "₱676",
+          "note": "mascarpone, shiitake & button mushrooms"
+        },
+        {
+          "name": "La Raspadura con Kielbasa",
+          "value": "₱698",
+          "note": "Bella Lodi raspadura, mozzarella, kielbasa"
+        },
+        {
+          "name": "Pizza Bianca: Prosciutto & Poached Pear",
+          "value": "₱589",
+          "note": "bechamel, prosciutto, pear poached in red wine"
+        },
+        {
+          "name": "Chicken & Bacon Pesto Overload",
+          "value": "₱610",
+          "note": "pesto, bechamel, grilled chicken, bacon"
+        },
+        {
+          "name": "All Salami",
+          "value": "₱596",
+          "note": "mozzarella, salami, pomodoro"
+        },
+        {
+          "name": "Spicy Chorizo, Peppers & Manchego",
+          "value": "₱568",
+          "note": "chorizo vela, roasted peppers, manchego, jalapeño"
+        },
+        {
+          "name": "Raspadura All Cheese Supreme",
+          "value": "₱824",
+          "note": "raspadura, mozzarella, white cheddar, Parmigiano"
+        },
+        {
+          "name": "All Seafood",
+          "value": "₱778",
+          "note": "shrimp, mussels, capers, olives, squid"
+        },
+        {
+          "name": "All Vegan Pizza",
+          "value": "₱774",
+          "note": "vegan mozzarella, mushrooms, olives, eggplant, peppers"
+        },
+        {
+          "name": "Mortadella & Pistachio",
+          "value": "₱714",
+          "note": "mortadella, mozzarella, pistachio, arugula"
+        },
+        {
+          "name": "Hawaiian",
+          "value": "₱489",
+          "note": "Lyoner ham, pineapple"
+        },
+        {
+          "name": "Pepperoni",
+          "value": "₱489"
+        },
+        {
+          "name": "All Cheese",
+          "value": "₱480",
+          "note": "mozzarella, white cheddar, Parmigiano, bechamel"
+        },
+        {
+          "name": "All Meat",
+          "value": "₱480",
+          "note": "Italian sausage, Lyoner ham"
         }
-      ]
+      ],
+      "navLabel": "Pizza"
     },
     {
       "type": "list",
-      "title": "Pizza, burgers & grill",
+      "title": "Beef & steak · good for 2–3",
       "items": [
         {
-          "name": "Brick-oven pizza"
+          "name": "Kalderetang Batangas",
+          "value": "₱646",
+          "note": "4-hour braised brisket, Bonitos’ secret kaldereta sauce"
         },
         {
-          "name": "Bonitos burgers"
+          "name": "Black Ox Lengua in Mushroom Sauce",
+          "value": "₱828"
         },
         {
-          "name": "Grilled plates"
+          "name": "Beef Tenderloin Salpicao",
+          "value": "₱879"
+        },
+        {
+          "name": "Braised Beef Shank w/ Gremolata",
+          "value": "₱1,679",
+          "note": "good for 5 · 1kg bone-in shank, mashed potato"
+        },
+        {
+          "name": "Angus Prime Ribeye Steak",
+          "value": "₱3,989",
+          "note": "500g, brown butter, garlic confit, rosemary gravy, chimichurri"
         }
-      ]
+      ],
+      "navLabel": "Beef"
+    },
+    {
+      "type": "list",
+      "title": "Pork · good for 2–3",
+      "items": [
+        {
+          "name": "Crispy Kare-Kare",
+          "value": "₱1,694",
+          "note": "good for 3–5 · 1.5kg pata, peanut sauce, vegetables, bagoong"
+        },
+        {
+          "name": "Pork Sisig",
+          "value": "₱459"
+        },
+        {
+          "name": "Grilled Pork Belly",
+          "value": "₱659",
+          "note": "400g, Bonitos BBQ sauce, atchara & apple slaw"
+        },
+        {
+          "name": "5 Spice Asian Honey Baby Back Ribs",
+          "value": "₱1,659",
+          "note": "1kg ribs, honey hoisin BBQ"
+        },
+        {
+          "name": "Tomahawk Porkchops",
+          "value": "₱1,519",
+          "note": "good for 3–5 · 600g sous vide, caramelized onions, apple slaw"
+        }
+      ],
+      "navLabel": "Pork"
+    },
+    {
+      "type": "list",
+      "title": "Chicken · good for 2–3",
+      "items": [
+        {
+          "name": "Rosemary Chicken",
+          "value": "₱594",
+          "note": "sous vide leg & thigh, rosemary gravy, mashed potato"
+        },
+        {
+          "name": "BBQ Peri-Peri Chicken",
+          "value": "₱549",
+          "note": "sous vide grilled leg & thigh, side salad"
+        },
+        {
+          "name": "BBQ Chicken Fillet Skewers",
+          "value": "₱439",
+          "note": "coconut-pesto cream"
+        },
+        {
+          "name": "Chili Honey Sesame Wings",
+          "value": "₱439"
+        },
+        {
+          "name": "Creamy Buffalo Wings",
+          "value": "₱439",
+          "note": "bleu cheese dip"
+        }
+      ],
+      "navLabel": "Chicken"
+    },
+    {
+      "type": "list",
+      "title": "Seafood · good for 2–3",
+      "items": [
+        {
+          "name": "Crispy Calamari",
+          "value": "₱659",
+          "note": "homemade aioli, atchara"
+        },
+        {
+          "name": "Sinigang Bangus Belly",
+          "value": "₱629"
+        },
+        {
+          "name": "Crispy Tilapia Fillet w/ Mango Salsa",
+          "value": "₱658"
+        },
+        {
+          "name": "Chilean Mussels Provençale",
+          "value": "₱710"
+        },
+        {
+          "name": "Baked Salmon w/ Quinoa & Furikake Salad",
+          "value": "₱789",
+          "note": "250g salmon fillet"
+        },
+        {
+          "name": "Tuna Souvlaki w/ Dill Crema",
+          "value": "₱568",
+          "note": "4 skewers"
+        },
+        {
+          "name": "Mixed Seafood Stew",
+          "value": "₱889"
+        },
+        {
+          "name": "Gambas al Ajillo",
+          "value": "₱720"
+        },
+        {
+          "name": "Grilled Squid con Sofrito",
+          "value": "₱934"
+        },
+        {
+          "name": "Baked Mediterranean Pompano",
+          "value": "₱882"
+        },
+        {
+          "name": "Tuna Salpicao",
+          "value": "₱689"
+        },
+        {
+          "name": "Salted Egg Crispy Crablets",
+          "value": "₱598"
+        }
+      ],
+      "navLabel": "Seafood"
+    },
+    {
+      "type": "list",
+      "title": "Vegetables & plant-based",
+      "items": [
+        {
+          "name": "Pinakbet Bonitos",
+          "value": "₱315"
+        },
+        {
+          "name": "Garlic Broccoli",
+          "value": "₱415",
+          "note": "with shiitake mushrooms"
+        },
+        {
+          "name": "Stir-Fry Vegetables in Oyster Sauce",
+          "value": "₱315"
+        },
+        {
+          "name": "Braised Tofu in Chili Garlic Sauce",
+          "value": "₱329"
+        },
+        {
+          "name": "Tokwa’t Unbaboy",
+          "value": "₱384",
+          "note": "good for 2"
+        },
+        {
+          "name": "Unsteak in Skewers",
+          "value": "₱310",
+          "note": "good for 2 · gluten steak, BBQ sauce, chimichurri"
+        },
+        {
+          "name": "Unsteak & Mushroom Salpicao",
+          "value": "₱378",
+          "note": "good for 2"
+        }
+      ],
+      "navLabel": "Veggies"
+    },
+    {
+      "type": "list",
+      "title": "Signature meal specials",
+      "items": [
+        {
+          "name": "Crispy Calamari",
+          "value": "₱534"
+        },
+        {
+          "name": "Beef Kalderetang Batangas",
+          "value": "₱558"
+        },
+        {
+          "name": "Rosemary Chicken",
+          "value": "₱516"
+        },
+        {
+          "name": "Grilled Pork Belly",
+          "value": "₱526"
+        },
+        {
+          "name": "Every special includes",
+          "note": "soup of the day, salad, rice, brownie, fresh lemonade & brewed coffee"
+        }
+      ],
+      "navLabel": "Meal specials"
+    },
+    {
+      "type": "list",
+      "title": "Pasta platters",
+      "items": [
+        {
+          "name": "Pasta Platter 1",
+          "value": "₱617",
+          "note": "spaghetti al pesto w/ chicken + chorizo uno pizza sub, chips, iced tea"
+        },
+        {
+          "name": "Pasta Platter 2",
+          "value": "₱658",
+          "note": "spaghetti & meatball + chicken & bacon caesar pizza sub, chips, iced tea"
+        },
+        {
+          "name": "Pasta Platter 3",
+          "value": "₱669",
+          "note": "squid ink tagliatelle + tuna souvlaki, side salad, iced tea"
+        },
+        {
+          "name": "Pasta Platter 4",
+          "value": "₱674",
+          "note": "tagliatelle bolognese + buffalo wings, side salad, iced tea"
+        }
+      ],
+      "navLabel": "Platters"
+    },
+    {
+      "type": "list",
+      "title": "Rice meals",
+      "items": [
+        {
+          "name": "Black Ox Lengua in Mushroom Sauce",
+          "value": "₱498"
+        },
+        {
+          "name": "Beef Kalderetang Batangas",
+          "value": "₱358"
+        },
+        {
+          "name": "Grilled Pork Belly",
+          "value": "₱340"
+        },
+        {
+          "name": "Pork Sisig",
+          "value": "₱289"
+        },
+        {
+          "name": "Rosemary Chicken",
+          "value": "₱339"
+        },
+        {
+          "name": "Crispy Calamari",
+          "value": "₱364"
+        },
+        {
+          "name": "Creamy Buffalo Wings",
+          "value": "₱329"
+        },
+        {
+          "name": "Chili Honey Sesame Wings",
+          "value": "₱329"
+        },
+        {
+          "name": "BBQ Chicken Fillet Skewers",
+          "value": "₱349"
+        }
+      ],
+      "navLabel": "Rice meals"
+    },
+    {
+      "type": "list",
+      "title": "Sides & extras",
+      "items": [
+        {
+          "name": "Plain Rice",
+          "value": "₱50"
+        },
+        {
+          "name": "Garlic Rice",
+          "value": "₱75"
+        },
+        {
+          "name": "Mashed Potato",
+          "value": "₱125"
+        },
+        {
+          "name": "Brown Butter Garlic Baguette",
+          "value": "₱35"
+        },
+        {
+          "name": "Grated Parmigiano Reggiano",
+          "value": "₱35"
+        },
+        {
+          "name": "Raspadura cheese (Bella Lodi)",
+          "value": "₱190"
+        },
+        {
+          "name": "Bleu Cheese Dip",
+          "value": "₱45"
+        },
+        {
+          "name": "Salad Dressing / Vinaigrette",
+          "value": "₱60"
+        },
+        {
+          "name": "Rosemary Gravy",
+          "value": "₱50"
+        },
+        {
+          "name": "Apple Slaw",
+          "value": "₱65"
+        }
+      ],
+      "navLabel": "Sides"
+    },
+    {
+      "type": "list",
+      "title": "Desserts",
+      "items": [
+        {
+          "name": "Cheesecake",
+          "value": "₱349",
+          "note": "blueberry / strawberry / mango / salted caramel"
+        },
+        {
+          "name": "Ube Crème Brûlée Cheesecake",
+          "value": "₱349"
+        },
+        {
+          "name": "Frozen Brazo de Mercedes",
+          "value": "₱329"
+        },
+        {
+          "name": "Vanilla Panna Cotta",
+          "value": "₱298",
+          "note": "mango & caramelized banana"
+        },
+        {
+          "name": "Giant Salted Caramel Cream Puff",
+          "value": "₱289"
+        },
+        {
+          "name": "Dark Chocolate Fudge à la Mode",
+          "value": "₱289"
+        }
+      ],
+      "navLabel": "Desserts"
+    },
+    {
+      "type": "list",
+      "title": "Juices, teas & smoothies",
+      "items": [
+        {
+          "name": "Fresh Lemonade",
+          "value": "₱125"
+        },
+        {
+          "name": "Blush Ternatea Lemonade",
+          "value": "₱145"
+        },
+        {
+          "name": "Strawberry Lemonade",
+          "value": "₱145"
+        },
+        {
+          "name": "Ginger Turmeric Lemonade",
+          "value": "₱155"
+        },
+        {
+          "name": "Fresh Calamansi",
+          "value": "₱125"
+        },
+        {
+          "name": "Passion Fruit",
+          "value": "₱198"
+        },
+        {
+          "name": "Apple Juice, by the pitcher",
+          "value": "₱689"
+        },
+        {
+          "name": "Hot Calamansi Honey",
+          "value": "₱110"
+        },
+        {
+          "name": "Hot Lemon Honey",
+          "value": "₱125"
+        },
+        {
+          "name": "Hot Lemon Ternatea",
+          "value": "₱135"
+        },
+        {
+          "name": "Hot Ginger Turmeric Lemon",
+          "value": "₱125"
+        },
+        {
+          "name": "Ripe Mango Smoothie",
+          "value": "₱189"
+        },
+        {
+          "name": "Watermelon Smoothie",
+          "value": "₱189"
+        },
+        {
+          "name": "Watermelon & Passion Fruit Smoothie",
+          "value": "₱235"
+        },
+        {
+          "name": "Buko Smoothie",
+          "value": "₱189"
+        },
+        {
+          "name": "Coke / Coke Zero / Sprite",
+          "value": "₱100"
+        },
+        {
+          "name": "Ferrarelle Sparkling Water 750ml",
+          "value": "₱210"
+        },
+        {
+          "name": "Bottled Water",
+          "value": "₱40"
+        }
+      ],
+      "navLabel": "Drinks"
+    },
+    {
+      "type": "list",
+      "title": "Coffee & matcha",
+      "items": [
+        {
+          "name": "Americano (hot, 8 oz)",
+          "value": "₱100"
+        },
+        {
+          "name": "Cafe Latte (hot)",
+          "value": "₱169"
+        },
+        {
+          "name": "Cappuccino (hot)",
+          "value": "₱169"
+        },
+        {
+          "name": "Vanilla Latte (hot)",
+          "value": "₱210"
+        },
+        {
+          "name": "White Chocolate Mocha (hot)",
+          "value": "₱210"
+        },
+        {
+          "name": "Caramel Latte (hot)",
+          "value": "₱229"
+        },
+        {
+          "name": "Mocha Latte (hot)",
+          "value": "₱229"
+        },
+        {
+          "name": "Dirty Matcha (hot)",
+          "value": "₱195"
+        },
+        {
+          "name": "Iced Americano (16 oz)",
+          "value": "₱125"
+        },
+        {
+          "name": "Iced Cafe Latte",
+          "value": "₱175"
+        },
+        {
+          "name": "Iced Cafe Mocha",
+          "value": "₱229"
+        },
+        {
+          "name": "Iced Choco Hazelnut",
+          "value": "₱249"
+        },
+        {
+          "name": "Iced White Chocolate Latte",
+          "value": "₱255"
+        },
+        {
+          "name": "Iced Caramel Latte",
+          "value": "₱255"
+        },
+        {
+          "name": "Iced Salted Caramel",
+          "value": "₱269"
+        },
+        {
+          "name": "Blended Mocha",
+          "value": "₱195"
+        },
+        {
+          "name": "Blended Chocolate & Hazelnut",
+          "value": "₱255"
+        },
+        {
+          "name": "Iced Matcha Latte",
+          "value": "₱269"
+        },
+        {
+          "name": "Iced Dirty Matcha",
+          "value": "₱279"
+        },
+        {
+          "name": "Choco Mint (coffee-free)",
+          "value": "₱245"
+        },
+        {
+          "name": "Butterscotch (coffee-free)",
+          "value": "₱195"
+        },
+        {
+          "name": "Espresso shot",
+          "value": "₱50 / ₱100",
+          "note": "1 / 2 shots"
+        },
+        {
+          "name": "Extra flavor shot",
+          "value": "₱35 / ₱70",
+          "note": "1 / 2 shots"
+        }
+      ],
+      "navLabel": "Coffee"
+    },
+    {
+      "type": "list",
+      "title": "Beer",
+      "items": [
+        {
+          "name": "San Miguel Pale Pilsen",
+          "value": "₱120"
+        },
+        {
+          "name": "San Miguel Light",
+          "value": "₱130"
+        },
+        {
+          "name": "Red Horse",
+          "value": "₱120"
+        },
+        {
+          "name": "Pilsner Urquell",
+          "value": "₱180"
+        },
+        {
+          "name": "Kozel",
+          "value": "₱240"
+        },
+        {
+          "name": "Peroni",
+          "value": "₱240"
+        },
+        {
+          "name": "Birra Moretti",
+          "value": "₱295"
+        },
+        {
+          "name": "Biere des Amis Blonde Ale",
+          "value": "₱289"
+        },
+        {
+          "name": "Biere des Amis India Pale Ale",
+          "value": "₱289"
+        }
+      ],
+      "navLabel": "Beer"
     },
     {
       "type": "text",
-      "title": "Sample menu",
-      "body": "A demo page TapDito made for Bonitos. The full menu goes here, with prices, photos and today's specials, and can be updated the same day prices change."
+      "title": "Good to know",
+      "body": "All prices are inclusive of 12% VAT, subject to 5% service charge. We also do delivery, take-out, catering and events (weddings, meetings, parties), with a private room, al fresco patio and garden."
     }
-  ]
+  ],
+  "menuNav": true
 }
