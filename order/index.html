@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Order</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FAF7F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Geist:wght@400;500;600&display=swap">
+<style>
+:root { --bg:#FAF7F2; --card:#FFFFFF; --line:#EDE2D5; --ink:#1B1612; --ink2:#6E6257; --accent:#EE9420; --on-accent:#1B1612; --ok:#2E7D4F; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.5 "Geist", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+.wrap { max-width: 520px; margin: 0 auto; min-height: 100vh; padding-bottom: 120px; }
+
+header { padding: 18px 20px 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { font: 800 20px/1.1 "Montserrat", sans-serif; }
+.brand small { display: block; font: 500 13px/1.3 "Geist", sans-serif; color: var(--ink2); margin-top: 3px; }
+.tbl { background: var(--ink); color: var(--bg); border-radius: 14px; padding: 8px 14px; text-align: center; font: 800 22px/1 "Montserrat", sans-serif; }
+.tbl span { display: block; font: 600 10.5px/1 "Geist", sans-serif; letter-spacing: .08em; text-transform: uppercase; opacity: .7; margin-bottom: 4px; }
+
+.tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 4px 20px 0; padding: 4px; background: #F1E8DC; border-radius: 14px; }
+.tabs button { border: 0; background: transparent; padding: 11px; border-radius: 10px; font-weight: 600; font-size: 14.5px; }
+.tabs button[aria-selected="true"] { background: var(--card); box-shadow: 0 1px 4px rgba(27,22,18,.08); }
+
+.chips { position: sticky; top: 0; z-index: 4; display: flex; gap: 8px; overflow-x: auto; padding: 12px 20px; background: var(--bg); scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chips a { flex: none; padding: 8px 13px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink); font: 600 13.5px/1 "Geist", sans-serif; text-decoration: none; white-space: nowrap; }
+
+.sec { padding: 14px 20px 4px; scroll-margin-top: 60px; }
+.sec h2 { margin: 6px 0 10px; font: 800 19px/1.2 "Montserrat", sans-serif; }
+.list { background: var(--card); border: 1.5px solid var(--line); border-radius: 16px; padding: 2px 14px; }
+.item { display: flex; gap: 12px; align-items: center; padding: 13px 0; border-bottom: 1px dashed var(--line); }
+.item:last-child { border-bottom: 0; }
+.item .t { flex: 1; min-width: 0; }
+.item b { font-weight: 600; display: block; }
+.item small { display: block; color: var(--ink2); font-size: 12.5px; margin-top: 2px; }
+.item .p { font: 600 14px/1.2 "Geist", sans-serif; color: var(--ink); margin-top: 4px; }
+.add { flex: none; width: 40px; height: 40px; border-radius: 12px; border: 1.5px solid var(--accent); background: transparent; color: #A85E08; font-size: 22px; line-height: 1; display: grid; place-items: center; }
+.add.in { background: var(--accent); color: var(--on-accent); font: 700 15px/1 "Geist", sans-serif; }
+
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: linear-gradient(to top, var(--bg) 70%, rgba(250,247,242,0)); }
+.bar button { width: 100%; max-width: 488px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; min-height: 56px; padding: 0 20px; border: 0; border-radius: 16px; background: var(--ink); color: var(--bg); font-weight: 600; font-size: 15.5px; box-shadow: 0 10px 30px rgba(27,22,18,.25); }
+.bar .count { background: var(--accent); color: var(--on-accent); border-radius: 8px; padding: 3px 9px; margin-right: 10px; font-weight: 700; }
+
+.sheet-bg { position: fixed; inset: 0; z-index: 20; background: rgba(27,22,18,.45); display: flex; align-items: flex-end; justify-content: center; }
+.sheet { width: 100%; max-width: 520px; max-height: 88vh; overflow: auto; background: var(--bg); border-radius: 22px 22px 0 0; padding: 20px 20px calc(20px + env(safe-area-inset-bottom)); }
+.sheet h3 { margin: 0 0 4px; font: 800 20px/1.2 "Montserrat", sans-serif; }
+.sheet .sub { color: var(--ink2); font-size: 14px; margin: 0 0 14px; }
+.line { display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px dashed var(--line); }
+.line .t { flex: 1; }
+.line .t b { font-weight: 600; display: block; }
+.line .t small { color: var(--ink2); font-size: 12.5px; }
+.qty { display: flex; align-items: center; gap: 4px; }
+.qty button { width: 34px; height: 34px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--card); font-size: 18px; }
+.qty span { min-width: 22px; text-align: center; font-weight: 600; }
+textarea, input[type=text] { width: 100%; border: 1.5px solid var(--line); border-radius: 12px; background: var(--card); padding: 12px; font: inherit; color: inherit; resize: vertical; }
+label.lbl { display: block; font-weight: 600; font-size: 14px; margin: 16px 0 6px; }
+.total { display: flex; justify-content: space-between; font-weight: 700; font-size: 17px; margin: 16px 0 4px; }
+.fine { color: var(--ink2); font-size: 12.5px; margin: 0 0 14px; }
+.primary { width: 100%; min-height: 54px; border: 0; border-radius: 14px; background: var(--accent); color: var(--on-accent); font-weight: 700; font-size: 16px; }
+.primary:disabled { opacity: .5; }
+.ghost { width: 100%; min-height: 48px; margin-top: 8px; border: 1.5px solid var(--line); border-radius: 14px; background: transparent; font-weight: 600; }
+.opts { display: grid; gap: 8px; margin-top: 12px; }
+.opts button { display: flex; justify-content: space-between; padding: 14px 16px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--card); font-weight: 600; }
+
+.done { text-align: center; padding: 50px 24px 20px; }
+.tick { width: 76px; height: 76px; margin: 0 auto 18px; border-radius: 50%; background: var(--ok); color: #fff; display: grid; place-items: center; font-size: 38px; }
+.done h2 { font: 800 24px/1.2 "Montserrat", sans-serif; margin: 0 0 8px; }
+.done p { color: var(--ink2); margin: 0 0 20px; }
+
+/* review */
+.rv { padding: 18px 20px; }
+.rv h2 { font: 800 21px/1.2 "Montserrat", sans-serif; margin: 6px 0 4px; }
+.rv .sub { color: var(--ink2); margin: 0 0 16px; font-size: 14.5px; }
+.servers { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 10px; }
+.sv { border: 1.5px solid var(--line); background: var(--card); border-radius: 14px; padding: 12px 6px; display: grid; justify-items: center; gap: 6px; font-weight: 600; font-size: 14px; }
+.sv .ph { width: 52px; height: 52px; border-radius: 50%; background: #F6E3C8; color: #8A4C05; display: grid; place-items: center; font: 800 20px/1 "Montserrat", sans-serif; overflow: hidden; }
+.sv .ph img { width: 100%; height: 100%; object-fit: cover; }
+.sv[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(238,148,32,.25); }
+.stars { display: flex; gap: 6px; margin-top: 4px; }
+.stars button { border: 0; background: transparent; font-size: 38px; line-height: 1; padding: 2px; color: #DCCFBF; }
+.stars button.on { color: var(--accent); }
+.err { color: #B3261E; font-size: 14px; margin-top: 10px; }
+.mode { text-align: center; color: var(--ink2); font-size: 12px; padding: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <header>
+    <div class="brand" id="brand">Menu<small id="where"></small></div>
+    <div class="tbl" id="tblBox" hidden><span>Table</span><b id="tblNo"></b></div>
+  </header>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tabMenu" aria-selected="true">Menu &amp; order</button>
+    <button role="tab" id="tabRate" aria-selected="false">Rate our service</button>
+  </div>
+
+  <main id="menuView">
+    <nav class="chips" id="chips" aria-label="Menu sections"></nav>
+    <div id="sections"><p class="mode">Loading menu…</p></div>
+  </main>
+
+  <main id="rateView" hidden></main>
+  <p class="mode" id="modeNote"></p>
+</div>
+
+<div class="bar" id="bar" hidden><button id="openCart" type="button"><span><span class="count" id="cCount">0</span>View order</span><span id="cTotal">₱0</span></button></div>
+<div id="layer"></div>
+
+<script src="config.js"></script>
+<script src="core.js"></script>
+<script>
+(async function () {
+  const TD = window.TD, $ = (s) => document.querySelector(s), esc = TD.esc;
+  const qs = new URLSearchParams(location.search);
+  const table = (qs.get("t") || "").replace(/[^0-9a-z-]/gi, "").slice(0, 6);
+  if (table) { $("#tblBox").hidden = false; $("#tblNo").textContent = table; }
+  $("#modeNote").textContent = TD.live ? "" : "Demo mode: orders stay on this device.";
+
+  /* ---------- menu ---------- */
+  let data;
+  try { data = await TD.menu(); } catch (e) { $("#sections").innerHTML = '<p class="mode">Menu not found.</p>'; return; }
+  TD.theme(data.theme);
+  document.title = (data.name || "Menu") + (table ? " · Table " + table : "");
+  $("#brand").firstChild.textContent = data.name || "Menu";
+  $("#where").textContent = table ? "Order from your table. Your server brings it." : "Browse our menu.";
+
+  const items = []; // flat list of orderable things
+  const sections = (data.sections || []).filter(s => s.type === "list");
+  const priceOf = (v) => (String(v || "").match(/[\d,]+/g) || []).map(n => Number(n.replace(/,/g, "")));
+  function optionLabels(sec, it, n) {
+    if (/solo/i.test(sec.title)) return ["Solo", "Sharing (2–3 pax)"];
+    if (/shot/i.test(it.note || "")) return ["1 shot", "2 shots"];
+    return Array.from({ length: n }, (_, i) => i === 0 ? "Regular" : "Option " + (i + 1));
+  }
+  $("#chips").innerHTML = sections.map((s, i) => `<a href="#s${i}">${esc(s.navLabel || s.title)}</a>`).join("");
+  $("#sections").innerHTML = sections.map((s, i) => {
+    const rows = (s.items || []).map(it => {
+      const prices = priceOf(it.value);
+      if (!prices.length) return `<div class="item"><div class="t"><b>${esc(it.name)}</b>${it.note ? `<small>${esc(it.note)}</small>` : ""}</div></div>`;
+      const idx = items.length;
+      items.push({ name: it.name, section: s.title, prices, labels: optionLabels(s, it, prices.length) });
+      return `<div class="item"><div class="t"><b>${esc(it.name)}</b>${it.note ? `<small>${esc(it.note)}</small>` : ""}<div class="p">${esc(it.value)}</div></div><button class="add" type="button" data-i="${idx}" aria-label="Add ${esc(it.name)}">+</button></div>`;
+    }).join("");
+    return `<section class="sec" id="s${i}"><h2>${esc(s.title)}</h2><div class="list">${rows}</div></section>`;
+  }).join("");
+
+  /* ---------- cart ---------- */
+  const cart = new Map(); // key "i:opt" -> qty
+  const keyOf = (i, o) => i + ":" + o;
+  function lineInfo(key) { const [i, o] = key.split(":").map(Number); const it = items[i]; return { it, o, price: it.prices[o], label: it.prices.length > 1 ? it.labels[o] : "" }; }
+  function totals() { let n = 0, sum = 0; cart.forEach((q, k) => { n += q; sum += q * lineInfo(k).price; }); return { n, sum }; }
+  function refresh() {
+    const { n, sum } = totals();
+    $("#bar").hidden = n === 0 || !$("#rateView").hidden;
+    $("#cCount").textContent = n; $("#cTotal").textContent = TD.peso(sum);
+    document.querySelectorAll(".add").forEach(b => {
+      const i = +b.dataset.i; let q = 0; cart.forEach((v, k) => { if (k.split(":")[0] == i) q += v; });
+      b.classList.toggle("in", q > 0); b.textContent = q > 0 ? q : "+";
+    });
+  }
+  function add(i, o) { const k = keyOf(i, o); cart.set(k, (cart.get(k) || 0) + 1); refresh(); }
+
+  $("#sections").addEventListener("click", (e) => {
+    const b = e.target.closest(".add"); if (!b) return;
+    if (!table) { sheet(`<h3>Tap the stand on your table</h3><p class="sub">To order, tap or scan the TapDito stand on your table so we know where to bring your food.</p><button class="primary" data-close>OK</button>`); return; }
+    const it = items[+b.dataset.i];
+    if (it.prices.length === 1) return add(+b.dataset.i, 0);
+    sheet(`<h3>${esc(it.name)}</h3><p class="sub">Choose a size</p><div class="opts">${it.prices.map((p, o) => `<button data-opt="${o}"><span>${esc(it.labels[o])}</span><span>${TD.peso(p)}</span></button>`).join("")}</div><button class="ghost" data-close>Cancel</button>`,
+      (root) => root.querySelectorAll("[data-opt]").forEach(x => x.onclick = () => { add(+b.dataset.i, +x.dataset.opt); close(); }));
+  });
+
+  function sheet(html, wire) {
+    $("#layer").innerHTML = `<div class="sheet-bg"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`;
+    const root = $("#layer .sheet-bg");
+    root.addEventListener("click", (e) => { if (e.target === root || e.target.closest("[data-close]")) close(); });
+    wire && wire(root);
+  }
+  function close() { $("#layer").innerHTML = ""; }
+
+  function cartSheet() {
+    const lines = []; cart.forEach((q, k) => { const L = lineInfo(k); lines.push(`<div class="line"><div class="t"><b>${esc(L.it.name)}</b><small>${L.label ? esc(L.label) + " · " : ""}${TD.peso(L.price)}</small></div><div class="qty"><button data-dec="${k}" aria-label="Less">−</button><span>${q}</span><button data-inc="${k}" aria-label="More">+</button></div></div>`); });
+    const { sum } = totals();
+    sheet(`<h3>Your order · Table ${esc(table)}</h3><p class="sub">Check it, then send it to your server.</p>${lines.join("")}
+      <label class="lbl" for="note">Note for the kitchen (optional)</label><textarea id="note" rows="2" maxlength="200" placeholder="e.g. no onions, extra rice"></textarea>
+      <div class="total"><span>Estimated total</span><span>${TD.peso(sum)}</span></div>
+      <p class="fine">Prices include 12% VAT. 5% service charge is added to your bill. You pay at the end, like usual.</p>
+      <button class="primary" id="send">Send order to server</button><p class="err" id="err" hidden></p><button class="ghost" data-close>Keep browsing</button>`,
+      (root) => {
+        root.querySelectorAll("[data-inc]").forEach(b => b.onclick = () => { cart.set(b.dataset.inc, cart.get(b.dataset.inc) + 1); refresh(); cartSheet(); });
+        root.querySelectorAll("[data-dec]").forEach(b => b.onclick = () => { const k = b.dataset.dec, q = cart.get(k) - 1; q > 0 ? cart.set(k, q) : cart.delete(k); refresh(); totals().n ? cartSheet() : close(); });
+        root.querySelector("#send").onclick = send;
+      });
+  }
+  $("#openCart").onclick = cartSheet;
+
+  async function send() {
+    const btn = $("#send"); btn.disabled = true; btn.textContent = "Sending…";
+    const list = []; cart.forEach((q, k) => { const L = lineInfo(k); list.push({ name: L.it.name, option: L.label, qty: q, price: L.price }); });
+    try {
+      await TD.addOrder({ table, items: list, note: ($("#note").value || "").trim().slice(0, 200), total: totals().sum });
+      cart.clear(); refresh();
+      sheet(`<div class="done"><div class="tick">✓</div><h2>Order sent!</h2><p>Your server received your order for Table ${esc(table)} and will confirm it shortly.</p><button class="primary" id="goRate">Rate your server</button><button class="ghost" data-close>Back to menu</button></div>`,
+        (root) => root.querySelector("#goRate").onclick = () => { close(); showRate(); });
+    } catch (e) {
+      btn.disabled = false; btn.textContent = "Send order to server";
+      const er = $("#err"); er.hidden = false; er.textContent = "Couldn't send. Check your connection and try again, or call your server.";
+    }
+  }
+
+  /* ---------- review ---------- */
+  const servers = await TD.servers();
+  let pick = null, stars = 0;
+  function showMenu() { $("#tabMenu").setAttribute("aria-selected", "true"); $("#tabRate").setAttribute("aria-selected", "false"); $("#menuView").hidden = false; $("#rateView").hidden = true; refresh(); }
+  function showRate() {
+    $("#tabMenu").setAttribute("aria-selected", "false"); $("#tabRate").setAttribute("aria-selected", "true");
+    $("#menuView").hidden = true; $("#rateView").hidden = false; refresh();
+    const last = Number(localStorage.getItem("td_lastreview_" + TD.slug + "_" + table) || 0);
+    if (Date.now() - last < 2 * 3600e3) { $("#rateView").innerHTML = `<div class="done"><div class="tick">✓</div><h2>Thank you!</h2><p>We already got your review for this visit.</p></div>`; return; }
+    pick = null; stars = 0;
+    $("#rateView").innerHTML = `<div class="rv"><h2>Who served you today?</h2><p class="sub">Your review is anonymous. Only your table number is recorded.</p>
+      <div class="servers">${servers.map(s => `<button class="sv" type="button" data-id="${esc(s.id)}" aria-pressed="false"><span class="ph">${s.photo ? `<img src="${esc(s.photo)}" alt="">` : esc((s.name || "?").charAt(0))}</span>${esc(s.name)}</button>`).join("")}</div>
+      <label class="lbl">How was the service?</label><div class="stars" id="stars">${[1,2,3,4,5].map(n => `<button type="button" data-n="${n}" aria-label="${n} star${n > 1 ? "s" : ""}">★</button>`).join("")}</div>
+      <label class="lbl" for="cm">Anything about your server? (optional)</label><textarea id="cm" rows="2" maxlength="300"></textarea>
+      <label class="lbl" for="sg">A suggestion for Bonitos? (optional)</label><textarea id="sg" rows="2" maxlength="300" placeholder="Food, music, anything"></textarea>
+      <div style="height:16px"></div><button class="primary" id="rvSend" disabled>Submit review</button><p class="err" id="rvErr" hidden></p></div>`;
+    const ok = () => { $("#rvSend").disabled = !(pick && stars); };
+    document.querySelectorAll(".sv").forEach(b => b.onclick = () => { document.querySelectorAll(".sv").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); pick = servers.find(s => String(s.id) === b.dataset.id); ok(); });
+    document.querySelectorAll("#stars button").forEach(b => b.onclick = () => { stars = +b.dataset.n; document.querySelectorAll("#stars button").forEach(x => x.classList.toggle("on", +x.dataset.n <= stars)); ok(); });
+    $("#rvSend").onclick = async () => {
+      $("#rvSend").disabled = true;
+      try {
+        await TD.addReview({ table, server_id: pick.id, server_name: pick.name, rating: stars, comment: $("#cm").value.trim().slice(0, 300), suggestion: $("#sg").value.trim().slice(0, 300) });
+        try { localStorage.setItem("td_lastreview_" + TD.slug + "_" + table, String(Date.now())); } catch (e) {}
+        $("#rateView").innerHTML = `<div class="done"><div class="tick">✓</div><h2>Salamat po!</h2><p>Your review helps our team serve you better.</p><button class="ghost" id="back">Back to menu</button></div>`;
+        $("#back").onclick = showMenu;
+      } catch (e) { $("#rvSend").disabled = false; const er = $("#rvErr"); er.hidden = false; er.textContent = "Couldn't send. Please try again."; }
+    };
+  }
+  $("#tabMenu").onclick = showMenu; $("#tabRate").onclick = showRate;
+  if (qs.get("v") === "rate") showRate();
+  refresh();
+})();
+</script>
+</body>
+</html>

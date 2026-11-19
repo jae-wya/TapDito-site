@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Owner dashboard</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Geist:wght@400;500;600&display=swap">
+<style>
+:root { --bg:#FAF7F2; --card:#FFFFFF; --line:#EDE2D5; --ink:#1B1612; --ink2:#6E6257; --accent:#EE9420; --good:#2E7D4F; --warn:#B3541E; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 400 15px/1.5 "Geist", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+button { font: inherit; cursor: pointer; color: inherit; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 22px 20px 40px; }
+header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+h1 { margin: 0; font: 800 26px/1.15 "Montserrat", sans-serif; }
+h1 small { display: block; font: 500 14px/1.3 "Geist", sans-serif; color: var(--ink2); margin-top: 4px; }
+.seg { display: flex; gap: 4px; padding: 4px; background: #F1E8DC; border-radius: 12px; }
+.seg button { border: 0; background: transparent; padding: 9px 14px; border-radius: 9px; font-weight: 600; font-size: 14px; }
+.seg button[aria-pressed="true"] { background: var(--card); box-shadow: 0 1px 4px rgba(27,22,18,.08); }
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 16px; }
+@media (max-width: 760px) { .kpis { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.kpi { background: var(--card); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+.kpi span { color: var(--ink2); font-size: 13px; font-weight: 600; }
+.kpi b { display: block; font: 800 28px/1.15 "Montserrat", sans-serif; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; }
+@media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+.panel { background: var(--card); border: 1.5px solid var(--line); border-radius: 18px; padding: 16px 18px; }
+.panel h2 { margin: 0 0 4px; font: 800 17px/1.2 "Montserrat", sans-serif; }
+.panel .sub { color: var(--ink2); font-size: 13px; margin: 0 0 12px; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th { text-align: left; color: var(--ink2); font-size: 12.5px; font-weight: 600; padding: 6px 6px; border-bottom: 1.5px solid var(--line); }
+td { padding: 11px 6px; border-bottom: 1px dashed var(--line); vertical-align: middle; }
+td.r, th.r { text-align: right; }
+.rank { font: 800 16px/1 "Montserrat", sans-serif; width: 34px; }
+.who { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.ph { width: 34px; height: 34px; border-radius: 50%; background: #F6E3C8; color: #8A4C05; display: grid; place-items: center; font: 800 14px/1 "Montserrat", sans-serif; flex: none; }
+.bar { height: 8px; background: #F1E8DC; border-radius: 99px; overflow: hidden; min-width: 70px; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+.tag { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 3px 8px; border-radius: 99px; margin-left: 6px; }
+.tag.top { background: #E3F2E8; color: var(--good); }
+.tag.low { background: #FBE9DF; color: var(--warn); }
+.muted { color: var(--ink2); }
+.feed { display: grid; gap: 10px; max-height: 420px; overflow: auto; }
+.fd { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; }
+.fd .h { display: flex; justify-content: space-between; color: var(--ink2); font-size: 12.5px; }
+.fd .st { color: var(--accent); letter-spacing: 1px; }
+.fd p { margin: 4px 0 0; }
+.sugg { background: #FFF6EA; }
+.dish { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px dashed var(--line); }
+.demo { margin-top: 22px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; color: var(--ink2); font-size: 13px; }
+.demo button { border: 1.5px solid var(--line); background: var(--card); border-radius: 10px; padding: 8px 12px; font-weight: 600; }
+.empty { color: var(--ink2); padding: 16px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 id="title">Service dashboard<small>Server reviews, guest suggestions and table orders</small></h1>
+    <div class="seg" id="seg" role="group" aria-label="Period">
+      <button data-p="day" aria-pressed="true">Today</button>
+      <button data-p="week" aria-pressed="false">This week</button>
+      <button data-p="month" aria-pressed="false">This month</button>
+      <button data-p="year" aria-pressed="false">This year</button>
+    </div>
+  </header>
+
+  <div class="kpis">
+    <div class="kpi"><span>Average rating</span><b id="kAvg">–</b></div>
+    <div class="kpi"><span>Reviews</span><b id="kRev">0</b></div>
+    <div class="kpi"><span>Table orders</span><b id="kOrd">0</b></div>
+    <div class="kpi"><span>Suggestions</span><b id="kSug">0</b></div>
+  </div>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Server ranking</h2>
+      <p class="sub" id="rule"></p>
+      <div id="board"></div>
+    </section>
+    <section class="panel">
+      <h2>Latest from guests</h2>
+      <p class="sub">Comments about servers and suggestions for the store</p>
+      <div class="feed" id="feed"></div>
+    </section>
+  </div>
+
+  <section class="panel" style="margin-top:14px">
+    <h2>Most ordered from the tables</h2>
+    <p class="sub">Based on tap-to-order orders in this period</p>
+    <div id="dishes"></div>
+  </section>
+
+  <div class="demo" id="demo" hidden>
+    <span>Demo tools (sample data, this device only):</span>
+    <button id="seed" type="button">Load a sample year of reviews</button>
+    <button id="clear" type="button">Clear demo data</button>
+  </div>
+</div>
+<script src="config.js"></script>
+<script src="core.js"></script>
+<script>
+(async function () {
+  const TD = window.TD, $ = (s) => document.querySelector(s), esc = TD.esc;
+  let period = "day";
+  const MIN = { day: 1, week: 3, month: 5, year: 10 };
+  const servers = await TD.servers();
+  try { const m = await TD.menu(); $("#title").firstChild.textContent = (m.name || "") + " · Service dashboard"; } catch (e) {}
+  if (!TD.live) $("#demo").hidden = false;
+
+  function since(p) {
+    const d = new Date();
+    if (p === "day") d.setHours(0, 0, 0, 0);
+    else if (p === "week") { d.setDate(d.getDate() - 6); d.setHours(0, 0, 0, 0); }
+    else if (p === "month") { d.setDate(1); d.setHours(0, 0, 0, 0); }
+    else { d.setMonth(0, 1); d.setHours(0, 0, 0, 0); }
+    return d.toISOString();
+  }
+  const stars = (n) => "★".repeat(n) + "☆".repeat(5 - n);
+  const when = (iso) => new Date(iso).toLocaleString("en-PH", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+
+  async function load() {
+    const s = since(period);
+    let reviews = [], orders = [];
+    try { [reviews, orders] = await Promise.all([TD.reviews(s), TD.orders(s)]); } catch (e) { $("#board").innerHTML = '<p class="empty">Connection problem. Retrying…</p>'; return; }
+
+    const avg = reviews.length ? reviews.reduce((a, r) => a + r.rating, 0) / reviews.length : 0;
+    $("#kAvg").textContent = reviews.length ? avg.toFixed(2) + " ★" : "–";
+    $("#kRev").textContent = reviews.length.toLocaleString();
+    $("#kOrd").textContent = orders.length.toLocaleString();
+    $("#kSug").textContent = reviews.filter(r => r.suggestion).length.toLocaleString();
+    $("#rule").textContent = `Ranked by average stars. Needs at least ${MIN[period]} review${MIN[period] > 1 ? "s" : ""} in this period to be ranked, so busy shifts don't win on volume alone.`;
+
+    const by = new Map();
+    servers.forEach(sv => by.set(String(sv.id), { name: sv.name, n: 0, sum: 0, five: 0 }));
+    reviews.forEach(r => {
+      const k = String(r.server_id || r.server_name);
+      if (!by.has(k)) by.set(k, { name: r.server_name || "Unknown", n: 0, sum: 0, five: 0 });
+      const b = by.get(k); b.n++; b.sum += r.rating; if (r.rating === 5) b.five++;
+    });
+    const rows = [...by.values()].map(b => Object.assign(b, { avg: b.n ? b.sum / b.n : 0 }));
+    const ranked = rows.filter(b => b.n >= MIN[period]).sort((a, b) => b.avg - a.avg || b.n - a.n);
+    const unranked = rows.filter(b => b.n < MIN[period]);
+    if (!rows.length) { $("#board").innerHTML = '<p class="empty">No servers yet.</p>'; }
+    else {
+      $("#board").innerHTML = `<table><thead><tr><th>#</th><th>Server</th><th class="r">Avg</th><th></th><th class="r">Reviews</th><th class="r">5★</th></tr></thead><tbody>
+        ${ranked.map((b, i) => `<tr><td class="rank">${i + 1}</td><td><div class="who"><span class="ph">${esc(b.name.charAt(0))}</span>${esc(b.name)}${i === 0 && ranked.length > 1 ? '<span class="tag top">Top</span>' : ""}${i === ranked.length - 1 && ranked.length > 2 ? '<span class="tag low">Needs support</span>' : ""}</div></td>
+          <td class="r"><b>${b.avg.toFixed(2)}</b></td><td><div class="bar"><i style="width:${(b.avg / 5 * 100).toFixed(0)}%"></i></div></td><td class="r">${b.n}</td><td class="r">${b.n ? Math.round(b.five / b.n * 100) : 0}%</td></tr>`).join("")}
+        ${unranked.map(b => `<tr class="muted"><td class="rank">–</td><td><div class="who"><span class="ph">${esc(b.name.charAt(0))}</span>${esc(b.name)}</div></td><td class="r">${b.n ? (b.sum / b.n).toFixed(2) : "–"}</td><td></td><td class="r">${b.n}</td><td class="r">not enough</td></tr>`).join("")}
+      </tbody></table>`;
+    }
+
+    const feed = reviews.filter(r => r.comment || r.suggestion).slice(0, 30);
+    $("#feed").innerHTML = feed.length ? feed.map(r => `
+      ${r.comment ? `<div class="fd"><div class="h"><span>${esc(r.server_name)} · Table ${esc(r.table_no)}</span><span>${when(r.created_at)}</span></div><div class="st">${stars(r.rating)}</div><p>${esc(r.comment)}</p></div>` : ""}
+      ${r.suggestion ? `<div class="fd sugg"><div class="h"><span>💡 Suggestion · Table ${esc(r.table_no)}</span><span>${when(r.created_at)}</span></div><p>${esc(r.suggestion)}</p></div>` : ""}`).join("") : '<p class="empty">No comments yet in this period.</p>';
+
+    const count = new Map();
+    orders.forEach(o => (o.items || []).forEach(i => count.set(i.name, (count.get(i.name) || 0) + i.qty)));
+    const top = [...count.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8);
+    $("#dishes").innerHTML = top.length ? top.map(([n, q]) => `<div class="dish"><span>${esc(n)}</span><b>${q}</b></div>`).join("") : '<p class="empty">No table orders yet in this period.</p>';
+  }
+
+  $("#seg").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    period = b.dataset.p; document.querySelectorAll("#seg button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); load();
+  });
+  $("#seed").onclick = async () => { await TD.seedDemo(servers); load(); };
+  $("#clear").onclick = async () => { await TD.clearLocal(); load(); };
+  await load();
+  TD.watch(() => load());
+})();
+</script>
+</body>
+</html>

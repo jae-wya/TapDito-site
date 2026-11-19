@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orders · Staff</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Geist:wght@400;500;600&display=swap">
+<style>
+:root { --bg:#17130F; --panel:#211B15; --card:#2B231B; --line:#3D3227; --ink:#F7EEE4; --ink2:#BFAE9C; --accent:#EE9420; --new:#EE9420; --prep:#5B9BEA; --done:#4FA36F; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 400 15px/1.45 "Geist", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+button { font: inherit; cursor: pointer; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+h1 { margin: 0; font: 800 20px/1.1 "Montserrat", sans-serif; }
+h1 small { display: block; font: 500 13px/1.3 "Geist", sans-serif; color: var(--ink2); margin-top: 3px; }
+.sound { border: 1.5px solid var(--accent); background: transparent; color: var(--accent); border-radius: 12px; padding: 10px 14px; font-weight: 600; }
+.sound.on { background: var(--accent); color: #1B1612; }
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 16px; }
+@media (max-width: 860px) { .cols { grid-template-columns: 1fr; } }
+.col { background: var(--panel); border-radius: 16px; padding: 12px; min-height: 60vh; }
+.col h2 { margin: 2px 4px 12px; font: 800 15px/1 "Montserrat", sans-serif; letter-spacing: .04em; text-transform: uppercase; display: flex; justify-content: space-between; }
+.col h2 span { color: var(--ink2); }
+.ord { background: var(--card); border: 1.5px solid var(--line); border-left: 6px solid var(--c, var(--new)); border-radius: 14px; padding: 12px 14px; margin-bottom: 10px; }
+.ord.fresh { animation: pulse 1s ease-in-out 3; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 4px rgba(238,148,32,.55); } }
+.top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.tno { font: 800 26px/1 "Montserrat", sans-serif; }
+.tno small { font: 600 12px/1 "Geist", sans-serif; color: var(--ink2); letter-spacing: .06em; text-transform: uppercase; margin-right: 6px; }
+.when { color: var(--ink2); font-size: 13px; }
+ul { list-style: none; margin: 10px 0 0; padding: 0; }
+li { display: flex; gap: 10px; padding: 4px 0; }
+li b { min-width: 28px; color: var(--accent); }
+li small { color: var(--ink2); }
+.note { margin-top: 8px; background: #3A2A12; color: #FFD9A6; border-radius: 8px; padding: 6px 10px; font-size: 14px; }
+.act { margin-top: 12px; width: 100%; min-height: 46px; border: 0; border-radius: 10px; font-weight: 700; background: var(--c, var(--new)); color: #15110D; }
+.empty { color: var(--ink2); text-align: center; padding: 30px 10px; }
+.mode { color: var(--ink2); font-size: 12px; text-align: center; padding: 0 0 20px; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Orders<small id="sub">Live from the tables</small></h1>
+  <button class="sound" id="sound" type="button">🔔 Turn on sound</button>
+</header>
+<div class="cols">
+  <section class="col"><h2>New <span id="nNew">0</span></h2><div id="cNew"></div></section>
+  <section class="col"><h2>Preparing <span id="nPrep">0</span></h2><div id="cPrep"></div></section>
+  <section class="col"><h2>Served · last 2 h <span id="nDone">0</span></h2><div id="cDone"></div></section>
+</div>
+<p class="mode" id="mode"></p>
+<script src="config.js"></script>
+<script src="core.js"></script>
+<script>
+(async function () {
+  const TD = window.TD, $ = (s) => document.querySelector(s), esc = TD.esc;
+  $("#mode").textContent = TD.live ? "" : "Demo mode: shows orders made on this device only.";
+  try { const m = await TD.menu(); $("#title").firstChild.textContent = (m.name || "Orders") + " · Orders"; } catch (e) {}
+
+  let soundOn = false, ctx = null, seen = null;
+  $("#sound").onclick = () => {
+    soundOn = !soundOn; $("#sound").classList.toggle("on", soundOn);
+    $("#sound").textContent = soundOn ? "🔔 Sound on" : "🔔 Turn on sound";
+    if (soundOn && !ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (soundOn) beep();
+  };
+  function beep() {
+    if (!soundOn || !ctx) return;
+    [0, 0.18].forEach(t => { const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = 880; g.gain.setValueAtTime(0.25, ctx.currentTime + t); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.15); o.connect(g).connect(ctx.destination); o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + 0.16); });
+  }
+
+  const NEXT = { new: ["preparing", "Start preparing"], preparing: ["served", "Mark served"] };
+  function card(o, fresh) {
+    const c = o.status === "new" ? "var(--new)" : o.status === "preparing" ? "var(--prep)" : "var(--done)";
+    const items = (o.items || []).map(i => `<li><b>${i.qty}×</b><span>${esc(i.name)}${i.option ? ` <small>(${esc(i.option)})</small>` : ""}</span></li>`).join("");
+    const nx = NEXT[o.status];
+    return `<article class="ord${fresh ? " fresh" : ""}" style="--c:${c}"><div class="top"><div class="tno"><small>Table</small>${esc(o.table_no)}</div><div class="when" data-t="${esc(o.created_at)}">${TD.ago(o.created_at)}</div></div>
+      <ul>${items}</ul>${o.note ? `<div class="note">📝 ${esc(o.note)}</div>` : ""}
+      ${nx ? `<button class="act" data-id="${esc(o.id)}" data-to="${nx[0]}">${nx[1]}</button>` : ""}</article>`;
+  }
+
+  async function load() {
+    const since = new Date(Date.now() - 12 * 3600e3).toISOString();
+    let list = [];
+    try { list = await TD.orders(since); } catch (e) { $("#mode").textContent = "Connection problem. Retrying…"; return; }
+    const ids = new Set(list.map(o => o.id));
+    const fresh = seen ? list.filter(o => !seen.has(o.id)).map(o => o.id) : [];
+    if (fresh.length) beep();
+    seen = ids;
+    const cut = Date.now() - 2 * 3600e3;
+    const neu = list.filter(o => o.status === "new");
+    const prep = list.filter(o => o.status === "preparing");
+    const done = list.filter(o => o.status === "served" && new Date(o.created_at).getTime() > cut).reverse();
+    const fill = (el, arr) => { $(el).innerHTML = arr.length ? arr.map(o => card(o, fresh.includes(o.id))).join("") : '<p class="empty">Nothing here</p>'; };
+    fill("#cNew", neu); fill("#cPrep", prep); fill("#cDone", done);
+    $("#nNew").textContent = neu.length; $("#nPrep").textContent = prep.length; $("#nDone").textContent = done.length;
+    document.title = (neu.length ? `(${neu.length}) ` : "") + "Orders · Staff";
+  }
+  document.addEventListener("click", async (e) => {
+    const b = e.target.closest(".act"); if (!b) return;
+    b.disabled = true; await TD.setStatus(b.dataset.id, b.dataset.to); load();
+  });
+  setInterval(() => document.querySelectorAll(".when").forEach(w => w.textContent = TD.ago(w.dataset.t)), 30000);
+  await load();
+  TD.watch(() => load());
+})();
+</script>
+</body>
+</html>
