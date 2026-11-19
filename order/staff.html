@@ -13,7 +13,7 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html, body { margin: 0; }
-body { background: var(--bg); color: var(--ink); font: 400 15px/1.45 "Geist", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+body { background: var(--bg); color: var(--ink); font: 400 17px/1.45 "Geist", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 button { font: inherit; cursor: pointer; }
 header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
 h1 { margin: 0; font: 800 20px/1.1 "Montserrat", sans-serif; }
@@ -29,15 +29,24 @@ h1 small { display: block; font: 500 13px/1.3 "Geist", sans-serif; color: var(--
 .ord.fresh { animation: pulse 1s ease-in-out 3; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 4px rgba(238,148,32,.55); } }
 .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-.tno { font: 800 26px/1 "Montserrat", sans-serif; }
+.tno { font: 800 36px/1 "Montserrat", sans-serif; }
+.num { font: 700 15px/1 "Geist", sans-serif; color: var(--ink2); margin-left: 8px; }
 .tno small { font: 600 12px/1 "Geist", sans-serif; color: var(--ink2); letter-spacing: .06em; text-transform: uppercase; margin-right: 6px; }
 .when { color: var(--ink2); font-size: 13px; }
 ul { list-style: none; margin: 10px 0 0; padding: 0; }
-li { display: flex; gap: 10px; padding: 4px 0; }
+li { display: flex; gap: 10px; padding: 5px 0; font-size: 19px; }
 li b { min-width: 28px; color: var(--accent); }
 li small { color: var(--ink2); }
 .note { margin-top: 8px; background: #3A2A12; color: #FFD9A6; border-radius: 8px; padding: 6px 10px; font-size: 14px; }
-.act { margin-top: 12px; width: 100%; min-height: 46px; border: 0; border-radius: 10px; font-weight: 700; background: var(--c, var(--new)); color: #15110D; }
+.btns { display: flex; gap: 10px; margin-top: 14px; }
+.act { flex: 1; min-height: 58px; border: 0; border-radius: 12px; font-weight: 700; font-size: 18px; background: var(--c, var(--new)); color: #15110D; }
+.cancel { min-height: 58px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 12px; background: transparent; color: var(--ink2); font-weight: 600; font-size: 15px; }
+.cancel.arm { border-color: #E5534B; color: #FF8A84; }
+.when { font-weight: 600; padding: 4px 10px; border-radius: 99px; }
+.ord.warn .when { background: #5A4210; color: #FFD27A; }
+.ord.late .when { background: #5C1F1B; color: #FF9A93; }
+.ord.late { border-color: #8C2F28; }
+.multi { margin-top: 8px; display: inline-block; background: #1F3350; color: #BFD7FF; border-radius: 8px; padding: 5px 10px; font-size: 14.5px; font-weight: 600; }
 .empty { color: var(--ink2); text-align: center; padding: 30px 10px; }
 .mode { color: var(--ink2); font-size: 12px; text-align: center; padding: 0 0 20px; }
 </style>
@@ -74,13 +83,21 @@ li small { color: var(--ink2); }
   }
 
   const NEXT = { new: ["preparing", "Start preparing"], preparing: ["served", "Mark served"] };
+  let openByTable = new Map();
+  function waitClass(o) {
+    if (o.status === "served") return "";
+    const m = (Date.now() - new Date(o.created_at).getTime()) / 60000;
+    return m >= 20 ? " late" : m >= 10 ? " warn" : "";
+  }
   function card(o, fresh) {
     const c = o.status === "new" ? "var(--new)" : o.status === "preparing" ? "var(--prep)" : "var(--done)";
     const items = (o.items || []).map(i => `<li><b>${i.qty}×</b><span>${esc(i.name)}${i.option ? ` <small>(${esc(i.option)})</small>` : ""}</span></li>`).join("");
     const nx = NEXT[o.status];
-    return `<article class="ord${fresh ? " fresh" : ""}" style="--c:${c}"><div class="top"><div class="tno"><small>Table</small>${esc(o.table_no)}</div><div class="when" data-t="${esc(o.created_at)}">${TD.ago(o.created_at)}</div></div>
-      <ul>${items}</ul>${o.note ? `<div class="note">📝 ${esc(o.note)}</div>` : ""}
-      ${nx ? `<button class="act" data-id="${esc(o.id)}" data-to="${nx[0]}">${nx[1]}</button>` : ""}</article>`;
+    const t = openByTable.get(String(o.table_no));
+    const multi = o.status !== "served" && t && t.n > 1 ? `<div class="multi">Table ${esc(o.table_no)}: ${t.n} open orders · ${TD.peso(t.sum)} total</div>` : "";
+    return `<article class="ord${fresh ? " fresh" : ""}${waitClass(o)}" style="--c:${c}" data-t="${esc(o.created_at)}" data-s="${esc(o.status)}"><div class="top"><div class="tno"><small>Table</small>${esc(o.table_no)}${o.number ? `<span class="num">#${esc(o.number)}</span>` : ""}</div><div class="when" data-t="${esc(o.created_at)}">${TD.ago(o.created_at)}</div></div>
+      <ul>${items}</ul>${o.note ? `<div class="note">📝 ${esc(o.note)}</div>` : ""}${multi}
+      ${nx ? `<div class="btns"><button class="act" data-id="${esc(o.id)}" data-to="${nx[0]}">${nx[1]}</button><button class="cancel" data-id="${esc(o.id)}">Cancel</button></div>` : ""}</article>`;
   }
 
   async function load() {
@@ -95,16 +112,26 @@ li small { color: var(--ink2); }
     const neu = list.filter(o => o.status === "new");
     const prep = list.filter(o => o.status === "preparing");
     const done = list.filter(o => o.status === "served" && new Date(o.created_at).getTime() > cut).reverse();
+    openByTable = new Map();
+    neu.concat(prep).forEach(o => { const k = String(o.table_no), v = openByTable.get(k) || { n: 0, sum: 0 }; v.n++; v.sum += Number(o.total) || 0; openByTable.set(k, v); });
     const fill = (el, arr) => { $(el).innerHTML = arr.length ? arr.map(o => card(o, fresh.includes(o.id))).join("") : '<p class="empty">Nothing here</p>'; };
     fill("#cNew", neu); fill("#cPrep", prep); fill("#cDone", done);
     $("#nNew").textContent = neu.length; $("#nPrep").textContent = prep.length; $("#nDone").textContent = done.length;
     document.title = (neu.length ? `(${neu.length}) ` : "") + "Orders · Staff";
   }
   document.addEventListener("click", async (e) => {
+    const x = e.target.closest(".cancel");
+    if (x) {
+      if (!x.classList.contains("arm")) { x.classList.add("arm"); x.textContent = "Tap again to cancel"; setTimeout(() => { x.classList.remove("arm"); x.textContent = "Cancel"; }, 3000); return; }
+      x.disabled = true; await TD.setStatus(x.dataset.id, "cancelled"); load(); return;
+    }
     const b = e.target.closest(".act"); if (!b) return;
     b.disabled = true; await TD.setStatus(b.dataset.id, b.dataset.to); load();
   });
-  setInterval(() => document.querySelectorAll(".when").forEach(w => w.textContent = TD.ago(w.dataset.t)), 30000);
+  setInterval(() => {
+    document.querySelectorAll(".when").forEach(w => w.textContent = TD.ago(w.dataset.t));
+    document.querySelectorAll(".ord").forEach(a => { a.classList.remove("warn", "late"); const c = waitClass({ status: a.dataset.s, created_at: a.dataset.t }).trim(); if (c) a.classList.add(c); });
+  }, 30000);
   await load();
   TD.watch(() => load());
 })();
