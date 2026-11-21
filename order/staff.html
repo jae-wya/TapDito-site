@@ -54,7 +54,7 @@ li small { color: var(--ink2); }
 <body>
 <header>
   <h1 id="title">Orders<small id="sub">Live from the tables</small></h1>
-  <button class="sound" id="sound" type="button">🔔 Turn on sound</button>
+  <div style="display:flex;gap:10px;align-items:center;"><a id="toBook" href="#" style="color:#BFAE9C;font-weight:600;text-decoration:none;margin-right:6px;">Reservations →</a><button class="sound" id="sound" type="button">🔔 Turn on sound</button></div>
 </header>
 <div class="cols">
   <section class="col"><h2>New <span id="nNew">0</span></h2><div id="cNew"></div></section>
@@ -68,6 +68,7 @@ li small { color: var(--ink2); }
 (async function () {
   const TD = window.TD, $ = (s) => document.querySelector(s), esc = TD.esc;
   $("#mode").textContent = TD.live ? "" : "Demo mode: shows orders made on this device only.";
+  $("#toBook").href = "bookings.html?r=" + encodeURIComponent(TD.slug);
   try { const m = await TD.menu(); $("#title").firstChild.textContent = (m.name || "Orders") + " · Orders"; } catch (e) {}
 
   let soundOn = false, ctx = null, seen = null;

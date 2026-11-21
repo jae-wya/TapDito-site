@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reservations · Staff</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Geist:wght@400;500;600&display=swap">
+<style>
+:root { --bg:#17130F; --panel:#211B15; --card:#2B231B; --line:#3D3227; --ink:#F7EEE4; --ink2:#BFAE9C; --accent:#EE9420; --ok:#4FA36F; --no:#E5534B; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 400 17px/1.45 "Geist", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+button { font: inherit; cursor: pointer; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+h1 { margin: 0; font: 800 20px/1.1 "Montserrat", sans-serif; }
+h1 small { display: block; font: 500 13px/1.3 "Geist", sans-serif; color: var(--ink2); margin-top: 3px; }
+nav a { color: var(--ink2); margin-left: 14px; text-decoration: none; font-weight: 600; }
+nav a[aria-current] { color: var(--accent); }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 16px; }
+.day { margin-bottom: 18px; }
+.day h2 { font: 800 15px/1 "Montserrat", sans-serif; letter-spacing: .04em; text-transform: uppercase; color: var(--ink2); margin: 10px 4px 10px; }
+.bk { display: grid; grid-template-columns: 110px 1fr auto; gap: 16px; align-items: center; background: var(--card); border: 1.5px solid var(--line); border-left: 6px solid var(--c, var(--accent)); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
+@media (max-width: 640px) { .bk { grid-template-columns: 1fr; } }
+.time { font: 800 26px/1 "Montserrat", sans-serif; }
+.time small { display: block; font: 600 13px/1.4 "Geist", sans-serif; color: var(--ink2); margin-top: 4px; }
+.who b { font-size: 19px; }
+.who div { color: var(--ink2); font-size: 15px; }
+.who a { color: var(--accent); }
+.note { margin-top: 6px; background: #3A2A12; color: #FFD9A6; border-radius: 8px; padding: 5px 10px; font-size: 14.5px; display: inline-block; }
+.acts { display: flex; gap: 8px; }
+.acts button { min-height: 52px; padding: 0 16px; border-radius: 12px; font-weight: 700; border: 0; }
+.yes { background: var(--ok); color: #0E1A12; }
+.no { background: transparent; border: 1.5px solid var(--line) !important; color: var(--ink2); }
+.st { font-weight: 700; font-size: 14px; padding: 6px 12px; border-radius: 99px; }
+.st.confirmed { background: #1E3A28; color: #8FD6A8; }
+.st.declined { background: #3E1E1B; color: #FF9A93; }
+.empty { color: var(--ink2); text-align: center; padding: 40px 10px; }
+.mode { color: var(--ink2); font-size: 12px; text-align: center; padding: 10px 0 20px; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Reservations<small>Upcoming bookings from the website</small></h1>
+  <nav><a href="#" id="toOrders">Orders</a><a href="#" aria-current="page">Reservations</a></nav>
+</header>
+<div class="wrap"><div id="list"><p class="empty">Loading…</p></div></div>
+<p class="mode" id="mode"></p>
+<script src="config.js"></script>
+<script src="core.js"></script>
+<script>
+(async function () {
+  const TD = window.TD, $ = (s) => document.querySelector(s), esc = TD.esc;
+  $("#toOrders").href = "staff.html?r=" + encodeURIComponent(TD.slug);
+  $("#mode").textContent = TD.live ? "" : "Demo mode: shows bookings made on this device only.";
+  try { const m = await TD.menu(); $("#title").firstChild.textContent = (m.name || "") + " · Reservations"; } catch (e) {}
+  const pad = (n) => String(n).padStart(2, "0");
+  const iso = (d) => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  const label = (t) => { const [h, m] = String(t).slice(0, 5).split(":").map(Number); return ((h + 11) % 12 + 1) + ":" + pad(m) + (h < 12 ? " AM" : " PM"); };
+  const dayName = (d) => { const t = iso(new Date()), tm = iso(new Date(Date.now() + 864e5)); return d === t ? "Today" : d === tm ? "Tomorrow" : new Date(d + "T00:00").toLocaleDateString("en-PH", { weekday: "long", month: "short", day: "numeric" }); };
+  async function load() {
+    let list = [];
+    try { list = await TD.bookings(iso(new Date())); } catch (e) { $("#list").innerHTML = '<p class="empty">Connection problem. Retrying…</p>'; return; }
+    if (!list.length) { $("#list").innerHTML = '<p class="empty">No upcoming bookings.</p>'; return; }
+    const by = new Map(); list.forEach(b => { if (!by.has(b.date)) by.set(b.date, []); by.get(b.date).push(b); });
+    $("#list").innerHTML = [...by.entries()].map(([d, arr]) => {
+      const guests = arr.filter(b => b.status !== "declined").reduce((a, b) => a + Number(b.pax || 0), 0);
+      return `<section class="day"><h2>${esc(dayName(d))} · ${arr.length} booking${arr.length > 1 ? "s" : ""} · ${guests} guests</h2>${arr.map(b => {
+        const c = b.status === "confirmed" ? "var(--ok)" : b.status === "declined" ? "var(--no)" : "var(--accent)";
+        const acts = b.status === "pending" ? `<div class="acts"><button class="yes" data-id="${esc(b.id)}" data-s="confirmed">Confirm</button><button class="no" data-id="${esc(b.id)}" data-s="declined">Decline</button></div>` : `<span class="st ${esc(b.status)}">${b.status === "confirmed" ? "Confirmed" : "Declined"}</span>`;
+        return `<article class="bk" style="--c:${c}"><div class="time">${label(b.time)}<small>${esc(b.pax)} guest${b.pax > 1 ? "s" : ""}</small></div>
+          <div class="who"><b>${esc(b.name)}</b><div><a href="tel:${esc(b.phone)}">${esc(b.phone)}</a></div>${b.note ? `<div class="note">📝 ${esc(b.note)}</div>` : ""}</div>${acts}</article>`;
+      }).join("")}</section>`;
+    }).join("");
+  }
+  document.addEventListener("click", async (e) => { const b = e.target.closest("[data-s]"); if (!b) return; b.disabled = true; await TD.setBooking(b.dataset.id, b.dataset.s); load(); });
+  await load(); TD.watch(() => load());
+})();
+</script>
+</body>
+</html>

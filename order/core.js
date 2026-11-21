@@ -102,13 +102,41 @@
       return read("reviews").filter(r => !sinceISO || r.created_at >= sinceISO).reverse();
     },
 
-    /* Calls cb() whenever orders or reviews change anywhere. */
+
+    async addBooking(b) {
+      const row = { restaurant: slug, name: b.name, phone: b.phone, date: b.date, time: b.time, pax: b.pax, note: b.note || "", status: "pending" };
+      const c = await client();
+      if (c) { const { error } = await c.from("bookings").insert(row); if (error) throw error; return; }
+      const all = read("bookings");
+      all.push(Object.assign({ id: uid(), created_at: new Date().toISOString() }, row));
+      write("bookings", all); bc && bc.postMessage({ type: "bookings" });
+    },
+
+    async bookings(fromDate) {
+      const c = await client();
+      if (c) {
+        let q = c.from("bookings").select("*").eq("restaurant", slug).order("date").order("time");
+        if (fromDate) q = q.gte("date", fromDate);
+        const { data, error } = await q; if (error) throw error; return data || [];
+      }
+      return read("bookings").filter(b => !fromDate || b.date >= fromDate).sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+    },
+
+    async setBooking(id, status) {
+      const c = await client();
+      if (c) { const { error } = await c.from("bookings").update({ status }).eq("id", id); if (error) throw error; return; }
+      write("bookings", read("bookings").map(b => b.id === id ? Object.assign({}, b, { status }) : b));
+      bc && bc.postMessage({ type: "bookings" });
+    },
+
+    /* Calls cb() whenever orders, reviews or bookings change anywhere. */
     async watch(cb) {
       const c = await client();
       if (c) {
         c.channel("td-" + slug)
           .on("postgres_changes", { event: "*", schema: "public", table: "orders", filter: "restaurant=eq." + slug }, () => cb("orders"))
           .on("postgres_changes", { event: "INSERT", schema: "public", table: "reviews", filter: "restaurant=eq." + slug }, () => cb("reviews"))
+          .on("postgres_changes", { event: "*", schema: "public", table: "bookings", filter: "restaurant=eq." + slug }, () => cb("bookings"))
           .subscribe();
         setInterval(() => cb("poll"), 30000); // safety net if realtime drops
         return;
@@ -137,7 +165,7 @@
       return true;
     },
 
-    async clearLocal() { if (!live) { write("orders", []); write("reviews", []); bc && bc.postMessage({ type: "orders" }); } },
+    async clearLocal() { if (!live) { write("orders", []); write("reviews", []); write("bookings", []); bc && bc.postMessage({ type: "orders" }); } },
 
     async menu() {
       const res = await fetch("/p/data/" + slug + ".json", { cache: "no-store" });

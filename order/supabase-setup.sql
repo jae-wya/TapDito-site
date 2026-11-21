@@ -72,6 +72,33 @@ do $$ begin
   begin alter publication supabase_realtime add table public.reviews; exception when duplicate_object then null; end;
 end $$;
 
+-- Reservations from the booking page.
+create table if not exists public.bookings (
+  id uuid primary key default gen_random_uuid(),
+  restaurant text not null,
+  name text not null check (char_length(name) between 1 and 60),
+  phone text not null check (char_length(phone) between 10 and 16),
+  date date not null,
+  time time not null,
+  pax int not null check (pax between 1 and 40),
+  note text not null default '' check (char_length(note) <= 200),
+  status text not null default 'pending' check (status in ('pending','confirmed','declined')),
+  created_at timestamptz not null default now()
+);
+create index if not exists bookings_rest_date on public.bookings (restaurant, date, time);
+alter table public.bookings enable row level security;
+drop policy if exists "guest book" on public.bookings;
+create policy "guest book" on public.bookings for insert with check (status = 'pending' and date >= current_date);
+-- DEMO: staff screen reads and confirms bookings with the public key. Replace with staff login before go-live,
+-- because bookings hold guests' names and phone numbers.
+drop policy if exists "demo read bookings" on public.bookings;
+create policy "demo read bookings" on public.bookings for select using (true);
+drop policy if exists "demo update bookings" on public.bookings;
+create policy "demo update bookings" on public.bookings for update using (true) with check (status in ('pending','confirmed','declined'));
+do $$ begin
+  begin alter publication supabase_realtime add table public.bookings; exception when duplicate_object then null; end;
+end $$;
+
 -- Sample servers for the Bonitos demo (swap for real names later).
 insert into public.servers (restaurant, name)
 select 'bonitos', n from unnest(array['Ana','Ben','Carlo','Dina','Eli']) as n
